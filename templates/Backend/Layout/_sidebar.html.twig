@@ -1,0 +1,34 @@
+<nav class="sidebar" id="sidebar" {{ stimulus_controller('sidebar') }}>
+	<div class="sidebar-header">
+		{% include 'Frontend/Layout/_logo.html.twig' %}
+		<button class="toggle-btn" id="toggle-btn">
+			<i class="bi bi-list"></i>
+		</button>
+	</div>
+	<ul class="sidebar-menu">
+		<li class="menu-item">
+			<a href="#dashboard">
+				<i class="bi bi-house-gear-fill"></i>
+				<span class="menu-item-text">Dashboard</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.users.index') }}">
+				<i class="bi bi-people-fill"></i>
+				<span class="menu-item-text">Users</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="#settings">
+				<i class="icon-settings"></i>
+				<span class="menu-item-text">Settings</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="#reports">
+				<i class="icon-reports"></i>
+				<span class="menu-item-text">Reports</span>
+			</a>
+		</li>
+	</ul>
+</nav>
