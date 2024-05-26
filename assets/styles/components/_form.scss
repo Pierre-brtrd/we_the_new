@@ -1,0 +1,9 @@
+input {
+    padding: 0.5rem;
+    border-radius: $border-radius;
+    border: 1px solid $gray;
+
+    &::placeholder {
+        color: $gray;
+    }
+}

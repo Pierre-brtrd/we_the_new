@@ -1,0 +1,42 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    background: $primary;
+    padding: 0.5rem 0;
+
+    &-content {
+        @include flex(space-between, center);
+    }
+
+    &-links {
+        @include flex(center, center, $gap: 1rem);
+        &:not(.navbar-icons) {
+            flex: 1;
+        }
+
+        &.navbar-icons {
+            flex: 0.5;
+        }
+    }
+
+    &-form {
+        flex: 1;
+        position: relative;
+
+        input {
+            width: 100%;
+            padding-right: 7%;
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $primary;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+        }
+    }
+}
