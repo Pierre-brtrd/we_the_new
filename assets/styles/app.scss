@@ -1,3 +1,7 @@
-body {
-    background-color: lightgray;
-}
+// Import abstracts
+@import "abstracts/variables";
+@import "abstracts/mixins";
+@import "abstracts/functions";
+
+// Import Vendors
+@import "vendors/bootstrap";
