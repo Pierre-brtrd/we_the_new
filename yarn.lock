@@ -1500,6 +1500,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: 10c0/4681e682abc006d25eb380d0cf3efc7557043f53b6aea7a5057d0d1e7df849a00e281cd8ea79c902a35a414d7919621fc2ba293ecec05f413598e0b23d5a1e63
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.8
   resolution: "@sinclair/typebox@npm:0.27.8"
@@ -5926,6 +5933,7 @@ __metadata:
     "@babel/preset-env": "npm:^7.16.0"
     "@hotwired/stimulus": "npm:^3.0.0"
     "@hotwired/turbo": "npm:^7.1.1 || ^8.0"
+    "@popperjs/core": "npm:^2.11.8"
     "@symfony/stimulus-bridge": "npm:^3.2.0"
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets"
     "@symfony/webpack-encore": "npm:^4.0.0"

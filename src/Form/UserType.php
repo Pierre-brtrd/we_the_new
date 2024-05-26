@@ -73,7 +73,8 @@ class UserType extends AbstractType
                 ],
                 'multiple' => true,
                 'expanded' => true,
-            ]);
+            ])
+                ->remove('password');
         }
 
         if ($options['isEdit']) {

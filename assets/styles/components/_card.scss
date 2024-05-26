@@ -1,0 +1,11 @@
+.card {
+    border-radius: $border-radius;
+    border: 1px solid $primary;
+    padding: 1rem;
+    word-break: break-word;
+
+    &-btn {
+        @include flex(space-between, center);
+        margin-top: 1rem;
+    }
+}

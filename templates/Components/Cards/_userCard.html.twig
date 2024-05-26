@@ -1,0 +1,13 @@
+<div class="card">
+	<p class="fw-bold">{{ user.fullName }}</p>
+	<p>{{ user.email }}</p>
+	<p>{{ user.roles|join(', ')|replace({'_': ' '}) }}</p>
+	<em>
+		Inscrit depuis le
+		{{ user.createdAt|format_datetime('short', 'short') }}
+	</em>
+	<div class="card-btn">
+		<a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-warning">Modifier</a>
+		{% include 'Backend/Users/_deleteForm.html.twig' %}
+	</div>
+</div>

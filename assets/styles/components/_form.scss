@@ -13,3 +13,21 @@ form {
         width: 100%;
     }
 }
+
+.filter {
+    @include flex($align: center, $gap: 1rem);
+    form {
+        position: relative;
+        button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $primary;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            width: max-content;
+        }
+    }
+}
