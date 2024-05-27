@@ -12,6 +12,9 @@ body {
     display: flex;
     flex-direction: column;
     transition: width 0.3s;
+    position: sticky;
+    top: 0;
+    overflow: scroll;
 
     &.collapsed {
         width: $sidebar-collapsed-width;
