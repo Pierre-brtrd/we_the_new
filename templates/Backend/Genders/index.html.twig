@@ -20,7 +20,7 @@
 						</div>
 						<div class="card-btn">
 							<a href="{{ path('admin.genders.edit', {id: gender.id}) }}" class="btn btn-warning">Modifier</a>
-							{% include 'Backend/Genders/_deleteForm.html.twig' %}
+							<twig:DeleteForm action="{{ path('admin.genders.delete', {id: gender.id}) }}" message="Voulez-vous vraiment supprimer ce genre ?" csrftoken="{{ csrf_token('delete' ~ gender.id) }}"/>
 						</div>
 					</div>
 				</div>

@@ -6,8 +6,10 @@
 		Inscrit depuis le
 		{{ user.createdAt|format_datetime('short', 'short') }}
 	</em>
-	<div class="card-btn">
-		<a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-warning">Modifier</a>
-		{% include 'Backend/Users/_deleteForm.html.twig' %}
-	</div>
+	{% if app.request.get('_route') == 'admin.users.index' %}
+		<div class="card-btn">
+			<a href="{{ path('admin.users.edit', {id: user.id}) }}" class="btn btn-warning">Modifier</a>
+			<twig:DeleteForm action="{{ path('admin.users.delete', {id: user.id}) }}" message="Voulez-vous vraiment supprimer cet utilisateur ?" csrftoken="{{ csrf_token('delete' ~ user.id) }}"/>
+		</div>
+	{% endif %}
 </div>

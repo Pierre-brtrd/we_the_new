@@ -4,23 +4,21 @@ namespace App\Entity\Product;
 
 use App\Entity\Traits\DateTimeTrait;
 use App\Entity\Traits\EnableTrait;
-use App\Repository\Product\MarqueRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\Product\ModelRepository;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: MarqueRepository::class)]
+#[ORM\Entity(repositoryClass: ModelRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 #[Vich\Uploadable]
-class Marque
+class Model
 {
-    use DateTimeTrait,
-        EnableTrait;
+    use EnableTrait,
+        DateTimeTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,18 +26,18 @@ class Marque
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(max: 255)]
     #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields: ['name'])]
     private ?string $slug = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $description = null;
+    #[ORM\ManyToOne(inversedBy: 'models')]
+    private ?Marque $marque = null;
 
-    #[Vich\UploadableField(mapping: 'marques', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'models', fileNameProperty: 'imageName')]
     private ?File $image = null;
 
     #[ORM\Column(nullable: true)]
@@ -50,12 +48,6 @@ class Marque
      */
     #[ORM\OneToMany(targetEntity: Model::class, mappedBy: 'marque')]
     private Collection $models;
-
-    public function __construct()
-    {
-        $this->models = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
@@ -86,14 +78,14 @@ class Marque
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getMarque(): ?Marque
     {
-        return $this->description;
+        return $this->marque;
     }
 
-    public function setDescription(?string $description): static
+    public function setMarque(?Marque $marque): static
     {
-        $this->description = $description;
+        $this->marque = $marque;
 
         return $this;
     }
@@ -131,35 +123,5 @@ class Marque
     public function getImageName(): ?string
     {
         return $this->imageName;
-    }
-
-    /**
-     * @return Collection<int, Model>
-     */
-    public function getModels(): Collection
-    {
-        return $this->models;
-    }
-
-    public function addModel(Model $model): static
-    {
-        if (!$this->models->contains($model)) {
-            $this->models->add($model);
-            $model->setMarque($this);
-        }
-
-        return $this;
-    }
-
-    public function removeModel(Model $model): static
-    {
-        if ($this->models->removeElement($model)) {
-            // set the owning side to null (unless already changed)
-            if ($model->getMarque() === $this) {
-                $model->setMarque(null);
-            }
-        }
-
-        return $this;
     }
 }
