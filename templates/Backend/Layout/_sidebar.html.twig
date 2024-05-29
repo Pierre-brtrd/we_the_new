@@ -19,6 +19,12 @@
 			</a>
 		</li>
 		<li class="menu-item">
+			<a href="{{ path('admin.products.index') }}" class="{{ app.request.get('_route') == 'admin.products.index' ? 'active' }}">
+				<i class="bi bi-basket-fill"></i>
+				<span class="menu-item-text">Produits</span>
+			</a>
+		</li>
+		<li class="menu-item">
 			<a href="{{ path('admin.genders.index') }}" class="{{ app.request.get('_route') == 'admin.genders.index' ? 'active' }}">
 				<i class="bi bi-gender-ambiguous"></i>
 				<span class="menu-item-text">Genres</span>

@@ -5,6 +5,7 @@ namespace App\Entity\Product;
 use App\Entity\Traits\DateTimeTrait;
 use App\Entity\Traits\EnableTrait;
 use App\Repository\Product\ModelRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -44,10 +45,15 @@ class Model
     private ?string $imageName = null;
 
     /**
-     * @var Collection<int, Model>
+     * @var Collection<int, Product>
      */
-    #[ORM\OneToMany(targetEntity: Model::class, mappedBy: 'marque')]
-    private Collection $models;
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'model')]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,5 +129,35 @@ class Model
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setModel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getModel() === $this) {
+                $product->setModel(null);
+            }
+        }
+
+        return $this;
     }
 }
