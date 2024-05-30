@@ -28,7 +28,7 @@
         }
     }
 
-    &-marque {
+    &-model {
         border-radius: $border-radius;
         background: $primary;
         color: $text-color;
@@ -49,6 +49,33 @@
         &-name {
             flex: 1;
             margin-bottom: 0;
+        }
+
+        .card-btn {
+            margin-top: 0;
+            margin-bottom: 0.5em;
+            padding: 0 0.7em;
+            gap: 1em;
+        }
+    }
+
+    &-marque {
+        border-radius: $border-radius;
+        background: $primary;
+        color: $text-color;
+        overflow: hidden;
+
+        &-list {
+            @include flex($align: center, $gap: 1rem);
+
+            & > * {
+                width: 20%;
+            }
+        }
+
+        img {
+            height: rem(300);
+            aspect-ratio: 9/1;
         }
 
         .card-btn {
