@@ -1,0 +1,41 @@
+<table class="admin-table mt-4">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Nom</th>
+			<th>Model</th>
+			<th>Marque</th>
+			<th>Prix</th>
+			<th>Image</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in products %}
+			<tr>
+				<td>{{ product.id }}</td>
+				<td>{{ product.name }}</td>
+				<td>{{ product.model.name }}</td>
+				<td>{{ product.model.marque.name }}</td>
+				<td>
+					{% if product|resolve_chepeast_variant %}
+						À partir de
+						{{ product|resolve_chepeast_variant.priceHT|format_currency('EUR') }}
+					{% endif %}
+				</td>
+				<td class="table-img">
+					{% if product|main_image %}
+						<img src="{{ vich_uploader_asset(product|main_image) }}" class="card-product-img" alt="{{ product.name }}" loading="lazy">
+					{% endif %}
+				</td>
+				<td class="actions">
+					<div class="actions-container">
+						<a href="{{ path('admin.products.edit', {id: product.id}) }}" class="btn btn-warning">Modifier</a>
+						<twig:DeleteForm action="{{ path('admin.products.delete', {id: product.id}) }}" message="Voulez-vous vraiment supprimer ce produit ?" csrftoken="{{ csrf_token('delete' ~ product.id) }}"/>
+						<a href="{{ path('admin.products-variants.index', {id: product.id}) }}" class="btn btn-info sub-item">Gérer les variants</a>
+					</div>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

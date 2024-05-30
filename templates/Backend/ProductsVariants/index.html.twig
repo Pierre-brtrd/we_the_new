@@ -1,23 +1,25 @@
 {% extends 'Backend/base.html.twig' %}
 
 {% block title %}
-	Administration des produits
+	Administration des variantes de produits
 	{{ parent() }}
 {% endblock %}
 
 {% block body %}
 	<section class="container mt-2">
-		<h1 class="text-center">Administration des produits</h1>
-		<a href="{{ path('admin.products.create') }}" class="btn btn-primary">Créer un produit</a>
+		<h1 class="text-center">Administration des variantes de produits
+			<br/>{{ app.request.get('id') ? product.name }}
+		</h1>
+		<a href="{{ path('admin.products-variants.create', {id: app.request.get('id') ?: null}) }}" class="btn btn-primary">Créer un variant</a>
 		<div class="d-flex justify-content-between align-items-center mt-4">
-			{% if products.getTotalItemCount > 0 %}
-				<p class="mb-0">{{ products.getTotalItemCount }}
-					{{ products.getTotalItemCount > 1 ? 'produits' : 'produit' }}</p>
+			{% if productVariants.getTotalItemCount > 0 %}
+				<p class="mb-0">{{ productVariants.getTotalItemCount }}
+					{{ productVariants.getTotalItemCount > 1 ? 'variantes' : 'variant' }}</p>
 			{% else %}
-				<p class="mb-0">Aucun produit</p>
+				<p class="mb-0">Aucun variant</p>
 			{% endif %}
 			<div class="filter">
-				<form action="{{ path('admin.products.index', app.request.query.all()) }}" method="GET" class="form-filter">
+				<form action="{{ path('admin.products-variants.index', app.request.query.all()) }}" method="GET">
 					<input type="text" name="search" placeholder="Rechercher" class="form-control" value="{{ app.request.query.get('search') }}">
 					<button type="submit">
 						<svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,16 +32,16 @@
 						Limit
 					</button>
 					<div class="dropdown-menu dropdown-menu-end" aria-labelledby="triggerId">
-						<a class="dropdown-item text-end" href="{{ path('admin.products.index', app.request.query.all()|merge({limit:9})) }}">9</a>
-						<a class="dropdown-item text-end" href="{{ path('admin.products.index', app.request.query.all()|merge({limit:18})) }}">18</a>
-						<a class="dropdown-item text-end" href="{{ path('admin.products.index', app.request.query.all()|merge({limit:36})) }}">36</a>
+						<a class="dropdown-item text-end" href="{{ path('admin.products-variants.index', app.request.query.all()|merge({limit:9, id: app.request.get('id')})) }}">9</a>
+						<a class="dropdown-item text-end" href="{{ path('admin.products-variants.index', app.request.query.all()|merge({limit:18, id: app.request.get('id')})) }}">18</a>
+						<a class="dropdown-item text-end" href="{{ path('admin.products-variants.index', app.request.query.all()|merge({limit:36, id: app.request.get('id')})) }}">36</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		{% include 'Backend/Products/_table.html.twig' %}
+		{% include 'Backend/ProductsVariants/_table.html.twig' %}
 		<div class="navigation">
-			{{ knp_pagination_render(products) }}
+			{{ knp_pagination_render(productVariants) }}
 		</div>
 	</section>
 {% endblock %}

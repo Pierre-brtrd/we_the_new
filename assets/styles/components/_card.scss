@@ -11,13 +11,20 @@
 
     &-product {
         @extend .col-md-3;
+        @include flex($justify: space-between, $align: null, $direction: column);
 
         &-img {
             background: $primary;
         }
 
         &-list {
-            @include flex($align: center, $gap: 1rem);
+            @include flex($align: stretch, $gap: 1rem);
+        }
+
+        &-content {
+            &-info {
+                flex: 1;
+            }
         }
     }
 

@@ -9,8 +9,10 @@ input {
 }
 
 form {
-    button[type="submit"] {
-        width: 100%;
+    &:not(.navbar-form, .form-filter) {
+        button[type="submit"] {
+            width: 100%;
+        }
     }
 }
 
