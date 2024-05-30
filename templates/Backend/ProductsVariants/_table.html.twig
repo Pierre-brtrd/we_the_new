@@ -2,8 +2,7 @@
 	<thead>
 		<tr>
 			<th>Id</th>
-			<th>Nom</th>
-			<th>Produits</th>
+			<th>Produit</th>
 			<th>Taille</th>
 			<th>Prix</th>
 			<th>Actions</th>
@@ -16,12 +15,12 @@
 				<td>{{ productVariant.product.name }}</td>
 				<td>{{ productVariant.size }}</td>
 				<td>{{ productVariant.priceHT|format_currency('EUR') }}</td>
-				{# <td class="actions">
-									<div class="actions-container">
-										<a href="{{ path('admin.products-variants.edit', {id: productVariant.id}) }}" class="btn btn-warning">Modifier</a>
-										<twig:DeleteForm action="{{ path('admin.products-variants.delete', {id: productVariant.id}) }}" message="Voulez-vous vraiment supprimer ce variant ?" csrftoken="{{ csrf_token('delete' ~ productVariant.id) }}"/>
-									</div>
-								</td> #}
+				<td class="actions">
+					<div class="actions-container">
+						<a href="#" class="btn btn-warning">Modifier</a>
+						<twig:DeleteForm action="#" message="Voulez-vous vraiment supprimer ce variant ?" csrftoken="{{ csrf_token('delete' ~ productVariant.id) }}"/>
+					</div>
+				</td>
 			</tr>
 		{% endfor %}
 	</tbody>

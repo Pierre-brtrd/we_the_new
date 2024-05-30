@@ -8,7 +8,7 @@
 {% block body %}
 	<section class="container mt-2">
 		<h1 class="text-center">Administration des variantes de produits
-			<br/>{{ app.request.get('id') ? product.name }}
+			<br/>{{ product ? product.name }}
 		</h1>
 		<a href="{{ path('admin.products-variants.create', {id: app.request.get('id') ?: null}) }}" class="btn btn-primary">Créer un variant</a>
 		<div class="d-flex justify-content-between align-items-center mt-4">
@@ -19,7 +19,7 @@
 				<p class="mb-0">Aucun variant</p>
 			{% endif %}
 			<div class="filter">
-				<form action="{{ path('admin.products-variants.index', app.request.query.all()) }}" method="GET">
+				<form action="{{ path('admin.products-variants.index', app.request.query.all()) }}" method="GET" class="form-filter">
 					<input type="text" name="search" placeholder="Rechercher" class="form-control" value="{{ app.request.query.get('search') }}">
 					<button type="submit">
 						<svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

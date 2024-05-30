@@ -21,7 +21,7 @@ class ProductVariantController extends AbstractController
     ) {
     }
 
-    #[Route('/{id}', name: '.index', methods: ['GET'], defaults: ['id' => null])]
+    #[Route('/list/{id}', name: '.index', methods: ['GET'], defaults: ['id' => null])]
     public function index(?Product $product, Request $request): Response
     {
         if ($product) {
@@ -63,7 +63,9 @@ class ProductVariantController extends AbstractController
 
             $this->addFlash('success', 'La variante de produit a bien été créée.');
 
-            return $this->redirectToRoute('admin.products-variants.index');
+            return $this->redirectToRoute('admin.products-variants.index', [
+                'id' => $productVariant->getProduct()->getId()
+            ]);
         }
 
         return $this->render('Backend/ProductsVariants/create.html.twig', [

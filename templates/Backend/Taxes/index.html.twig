@@ -1,0 +1,18 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}
+	Admin des taxes
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Administration des taxes</h1>
+		<a href="{{ path('admin.taxes.create') }}" class="btn btn-primary">Créer une taxe</a>
+		<div class="card-marque-list mt-4">
+			{% for taxe in taxes %}
+				{% include 'Components/Cards/_taxeCard.html.twig' %}
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

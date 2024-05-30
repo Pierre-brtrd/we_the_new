@@ -17,7 +17,7 @@
 				<p class="text-center">Aucune marque</p>
 			{% endif %}
 			<div class="filter">
-				<form action="{{ path('admin.marques.index', app.request.query.all()) }}" method="GET">
+				<form action="{{ path('admin.marques.index', app.request.query.all()) }}" method="GET" class="form-filter">
 					<input type="text" name="search" placeholder="Rechercher" class="form-control" value="{{ app.request.query.get('search') }}">
 					<button type="submit">
 						<svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

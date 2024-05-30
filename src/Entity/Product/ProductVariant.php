@@ -2,6 +2,7 @@
 
 namespace App\Entity\Product;
 
+use App\Entity\Taxe;
 use App\Repository\Product\ProductVariantRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,6 +28,12 @@ class ProductVariant
     #[ORM\ManyToOne(inversedBy: 'productVariants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
+
+    #[ORM\ManyToOne(inversedBy: 'productVariants')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Valid]
+    private ?Taxe $taxe = null;
 
     public function getId(): ?int
     {
@@ -65,6 +72,18 @@ class ProductVariant
     public function setProduct(?Product $product): static
     {
         $this->product = $product;
+
+        return $this;
+    }
+
+    public function getTaxe(): ?Taxe
+    {
+        return $this->taxe;
+    }
+
+    public function setTaxe(?Taxe $taxe): static
+    {
+        $this->taxe = $taxe;
 
         return $this;
     }
