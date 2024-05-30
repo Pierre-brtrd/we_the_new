@@ -5,9 +5,11 @@ namespace App\Form;
 use App\Entity\Product\Gender;
 use App\Entity\Product\Model;
 use App\Entity\Product\Product;
+use App\Form\DataTransformer\ProductAssociationsTransformer;
 use App\Form\ProductImageType;
 use App\Repository\Product\GenderRepository;
 use App\Repository\Product\ModelRepository;
+use App\Repository\Product\ProductRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,6 +21,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
 {
+    public function __construct(private ProductRepository $productRepository)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -83,7 +89,25 @@ class ProductType extends AbstractType
             ->add('enable', CheckboxType::class, [
                 'label' => 'Actif',
                 'required' => false,
+            ])
+            ->add('productAssociations', EntityType::class, [
+                'label' => 'Produits associés',
+                'class' => Product::class,
+                'choice_label' => 'name',
+                'query_builder' => fn (ProductRepository $productRepository) => $productRepository->createQueryBuilder('p')
+                    ->andWhere('p.enable = :enable')
+                    ->setParameter('enable', true)
+                    ->orderBy('p.name', 'ASC'),
+                'expanded' => false,
+                'multiple' => true,
+                'autocomplete' => true,
+                'mapped' => false,
+                'required' => false,
             ]);
+
+        $builder->get('productAssociations')->addModelTransformer(
+            new ProductAssociationsTransformer($this->productRepository)
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

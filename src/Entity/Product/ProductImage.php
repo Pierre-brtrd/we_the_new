@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\When;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProductImageRepository::class)]
@@ -31,6 +32,12 @@ class ProductImage
 
     #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName')]
     #[NotBlank]
+    #[When(
+        expression: 'this.getId() == null or this.getId() == true and this.getImageName() == null',
+        constraints: [
+            new NotBlank(message: 'cours.image.notBlank'),
+        ]
+    )]
     private ?File $image = null;
 
     #[ORM\Column()]

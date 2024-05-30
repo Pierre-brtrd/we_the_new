@@ -3,6 +3,7 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Product\Product;
+use App\Entity\Product\ProductAssociation;
 use App\Form\ProductType;
 use App\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -41,6 +42,14 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $associatedProducts = $form->get('productAssociations')->getData();
+
+            foreach ($associatedProducts as $associatedProduct) {
+                $associatedProduct->setProduct($product);
+
+                $this->em->persist($associatedProduct);
+            }
+
             $this->em->persist($product);
             $this->em->flush();
 
@@ -64,9 +73,24 @@ class ProductController extends AbstractController
         }
 
         $form = $this->createForm(ProductType::class, $product);
+
+        // Pré-remplir les produits associés
+        $associatedProducts = $product->getProductAssociations();
+        $form->get('productAssociations')->setData($associatedProducts);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product->removeAllProductAssociation();
+
+            $associatedProducts = $form->get('productAssociations')->getData();
+
+            foreach ($associatedProducts as $associatedProduct) {
+                $associatedProduct->setProduct($product);
+
+                $this->em->persist($associatedProduct);
+            }
+
             $this->em->flush();
 
             $this->addFlash('success', 'Le produit a bien été modifié.');

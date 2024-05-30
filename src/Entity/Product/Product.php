@@ -48,7 +48,7 @@ class Product
      * @var Collection<int, ProductImage>
      */
     #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
-    #[Assert\Valid]
+    // #[Assert\Valid]
     private Collection $images;
 
     /**
@@ -57,10 +57,18 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductVariant::class, mappedBy: 'product', orphanRemoval: true)]
     private Collection $productVariants;
 
+    /**
+     * @var Collection<int, ProductAssociation>
+     */
+    #[ORM\OneToMany(targetEntity: ProductAssociation::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[Assert\Valid]
+    private Collection $productAssociations;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->productVariants = new ArrayCollection();
+        $this->productAssociations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -195,6 +203,45 @@ class Product
             if ($productVariant->getProduct() === $this) {
                 $productVariant->setProduct(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductAssociation>
+     */
+    public function getProductAssociations(): Collection
+    {
+        return $this->productAssociations;
+    }
+
+    public function addProductAssociation(ProductAssociation $productAssociation): static
+    {
+        if (!$this->productAssociations->contains($productAssociation)) {
+            $this->productAssociations->add($productAssociation);
+            $productAssociation->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductAssociation(ProductAssociation $productAssociation): static
+    {
+        if ($this->productAssociations->removeElement($productAssociation)) {
+            // set the owning side to null (unless already changed)
+            if ($productAssociation->getProduct() === $this) {
+                $productAssociation->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function removeAllProductAssociation(): static
+    {
+        foreach ($this->productAssociations as $productAssociation) {
+            $this->removeProductAssociation($productAssociation);
         }
 
         return $this;
