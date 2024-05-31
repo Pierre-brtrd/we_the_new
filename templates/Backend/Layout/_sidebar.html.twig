@@ -1,6 +1,8 @@
 <nav class="sidebar" id="sidebar" {{ stimulus_controller('sidebar') }}>
 	<div class="sidebar-header">
-		{% include 'Frontend/Layout/_logo.html.twig' %}
+		<a href="{{ path('app.home') }}" data-turbo="false">
+			{% include 'Frontend/Layout/_logo.html.twig' %}
+		</a>
 		<button class="toggle-btn" id="toggle-btn">
 			<i class="bi bi-list"></i>
 		</button>

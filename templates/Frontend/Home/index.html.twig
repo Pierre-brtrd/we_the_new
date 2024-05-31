@@ -23,8 +23,12 @@
 			<a href="#" class="btn btn-secondary">Decouvrir</a>
 		</div>
 	</section>
-	<section class="container-right slider-model">
-		{% include 'Frontend/Home/_sliderModel.html.twig' %}
+	<section class="models">
+		<div class="slider-model-wrapper">
+			<div class="slider-model home">
+				{% include 'Components/Slider/_sliderModel.html.twig' %}
+			</div>
+		</div>
 	</section>
 	<section class="container latest-product">
 		{% include 'Frontend/Home/_latestProducts.html.twig' %}

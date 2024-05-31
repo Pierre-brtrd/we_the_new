@@ -2,6 +2,7 @@
 
 namespace App\Repository\Product;
 
+use App\Entity\Product\Model;
 use App\Entity\Product\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,6 +48,29 @@ class ProductRepository extends ServiceEntityRepository
             ->setMaxResults($max)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findShopPaginateOrderByDate(int $maxPerPage, int $page, ?string $search = null, ?Model $model = null): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.enable = true')
+            ->orderBy('p.createdAt', 'DESC');
+
+        if ($search) {
+            $query->andWhere('p.name LIKE :search')
+                ->setParameter('search', "%$search%");
+        }
+
+        if ($model) {
+            $query->andWhere('p.model = :model')
+                ->setParameter('model', $model);
+        }
+
+        return $this->pagination->paginate(
+            $query->getQuery(),
+            $page,
+            $maxPerPage
+        );
     }
 
     //    /**

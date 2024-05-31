@@ -1,11 +1,11 @@
 <header class="navbar">
 	<nav class="navbar-content container">
-		<a href="#" class="navbar-logo">
+		<a href="{{ path('app.home') }}" class="navbar-logo">
 			{% include 'Frontend/Layout/_logo.html.twig' %}
 		</a>
 		<ul class="navbar-links">
 			<li class="navbar-item">
-				<a href="">Sneakers</a>
+				<a href="{{ path('app.products.index') }}">Sneakers</a>
 			</li>
 			<li class="navbar-item">
 				<a href="">Chaussures</a>

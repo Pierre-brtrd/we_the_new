@@ -1,0 +1,21 @@
+<div class="shop-filter">
+	{% if entity.getTotalItemCount > 0 %}
+		<p class="mb-0">{{ entity.getTotalItemCount }}
+			{{ entity.getTotalItemCount > 1 ? entityName ~ 's' : entityName }}</p>
+	{% else %}
+		<p class="mb-0">Aucun produit</p>
+	{% endif %}
+	<button type="button" class="shop-filter-btn">
+		<svg width="14" height="12" viewbox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g clip-path="url(#clip0_335_559)">
+				<path d="M13 8.66701H7M4.333 8.66701H1M13 3.33301H9.667M7 3.33301H1M4.333 10.667V6.66701M9.667 5.33301V1.33301" stroke="#080808" stroke-linecap="round" stroke-linejoin="round"/>
+			</g>
+			<defs>
+				<clipPath id="clip0_335_559">
+					<rect width="14" height="12" fill="white"/>
+				</clipPath>
+			</defs>
+		</svg>
+		Filtrer et trier
+	</button>
+</div>
