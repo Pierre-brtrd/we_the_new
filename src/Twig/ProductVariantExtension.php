@@ -21,8 +21,20 @@ class ProductVariantExtension extends AbstractExtension
         ];
     }
 
+    public function getFunctions(): array
+    {
+        return [
+            new \Twig\TwigFunction('priceTTC', [$this, 'getPriceTTC']),
+        ];
+    }
+
     public function getCheapestVariant(Product $product): ?ProductVariant
     {
         return $this->productVariantRepository->findCheapestVariant($product);
+    }
+
+    public function getPriceTTC(ProductVariant $productVariant): float
+    {
+        return $productVariant->getPriceHT() * (1 + $productVariant->getTaxe()->getRate());
     }
 }

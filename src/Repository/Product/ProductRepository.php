@@ -37,6 +37,18 @@ class ProductRepository extends ServiceEntityRepository
         );
     }
 
+    public function findShopLatest(int $max): array
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('p, m')
+            ->where('p.enable = true')
+            ->join('p.model', 'm')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($max)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Product[] Returns an array of Product objects
     //     */

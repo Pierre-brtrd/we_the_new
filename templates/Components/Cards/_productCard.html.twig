@@ -6,7 +6,7 @@
 		<p class="card-product-model-name fw-bold fs-5 mb-0">{{ product.name }}</p>
 		{% if product|resolve_chepeast_variant %}
 			<p class="card-product-price fw-bold">À partir de
-				{{ product|resolve_chepeast_variant.priceHT|format_currency('EUR') }}</p>
+				{{ priceTTC(product|resolve_chepeast_variant)|format_currency('EUR') }}</p>
 		{% endif %}
 		<p class="card-product-name fw-bold">{{ product.model.marque.name }}</p>
 	</div>

@@ -8,6 +8,7 @@
 
 // Import base
 @import "base/base";
+@import "base/typography";
 
 // Import Layout
 @import "layout/header";
@@ -16,3 +17,5 @@
 @import "components/form";
 @import "components/card";
 @import "components/pagination";
+@import "components/banner";
+@import "components/utilities";

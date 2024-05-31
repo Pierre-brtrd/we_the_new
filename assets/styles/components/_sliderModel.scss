@@ -1,0 +1,4 @@
+.slider-model {
+    @include flex($align: center, $wrap: nowrap, $gap: 1em);
+    margin-bottom: 1rem;
+}

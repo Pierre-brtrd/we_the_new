@@ -3,6 +3,7 @@
     top: 0;
     background: $primary;
     padding: 0.5rem 0;
+    border-bottom: 1px solid #f5f5f5;
 
     &-content {
         @include flex(space-between, center);

@@ -6,3 +6,9 @@
     flex-wrap: $wrap;
     gap: $gap;
 }
+
+@mixin grid($columns: 1, $gap: 0, $display: grid) {
+    display: $display;
+    grid-template-columns: $columns;
+    gap: $gap;
+}
