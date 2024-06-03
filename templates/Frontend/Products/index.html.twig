@@ -20,5 +20,8 @@
 				{% include 'Components/Cards/_productCard.html.twig' %}
 			{% endfor %}
 		</div>
+		<div class="navigation">
+			{{ knp_pagination_render(products) }}
+		</div>
 	</section>
 {% endblock %}

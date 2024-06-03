@@ -4,9 +4,11 @@ namespace App\Repository\Product;
 
 use App\Entity\Product\Model;
 use App\Entity\Product\Product;
+use App\Filter\ProductFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -70,6 +72,37 @@ class ProductRepository extends ServiceEntityRepository
             $query->getQuery(),
             $page,
             $maxPerPage
+        );
+    }
+
+    public function createListShop(ProductFilter $productFilter, ?Model $model = null): PaginationInterface
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.enable = true');
+
+        if ($productFilter->getName()) {
+            $query->andWhere('p.name LIKE :name')
+                ->setParameter('name', "%{$productFilter->getName()}%");
+        }
+
+        if ($productFilter->getSort() && $productFilter->getSort() !== 'price') {
+            $query->orderBy($productFilter->getSort(), $productFilter->getDirection() ?? 'ASC');
+        } elseif ($productFilter->getSort() === 'price') {
+            $query
+                ->join('p.productVariants', 'pv')
+                ->groupBy('p')
+                ->orderBy('pv.priceHT', $productFilter->getDirection() ?? 'ASC');
+        }
+
+        if ($model) {
+            $query->andWhere('p.model = :model')
+                ->setParameter('model', $model);
+        }
+
+        return $this->pagination->paginate(
+            $query->getQuery(),
+            $productFilter->getPage(),
+            $productFilter->getLimit()
         );
     }
 
