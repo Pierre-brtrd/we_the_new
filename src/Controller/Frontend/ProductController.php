@@ -3,11 +3,13 @@
 namespace App\Controller\Frontend;
 
 use App\Entity\Product\Model;
+use App\Entity\Product\Product;
 use App\Filter\ProductFilter;
 use App\Form\ProductFilterType;
 use App\Repository\Product\ModelRepository;
 use App\Repository\Product\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,7 +23,7 @@ class ProductController extends AbstractController
     ) {
     }
 
-    #[Route('/{slug}', name: '.index', defaults: ['slug' => null])]
+    #[Route('/{slug}', name: '.index', defaults: ['slug' => null], methods: ['GET'])]
     public function index(?Model $model, Request $request): Response
     {
         $filter = (new ProductFilter())
@@ -47,6 +49,21 @@ class ProductController extends AbstractController
             'models' => $this->modelRepository->findBy(['enable' => true], ['name' => 'ASC']),
             'products' => $products,
             'form' => $form,
+        ]);
+    }
+
+    #[Route('/details/{slug}', name: '.show', methods: ['GET'])]
+    public function show(?Product $product): Response|RedirectResponse
+    {
+        if (!$product) {
+            $this->addFlash('error', 'Produit non trouvé');
+
+            return $this->redirectToRoute('app.products.index');
+        }
+
+        return $this->render('Frontend/Products/show.html.twig', [
+            'product' => $product,
+            'models' => $this->modelRepository->findBy(['enable' => true], ['name' => 'ASC']),
         ]);
     }
 }

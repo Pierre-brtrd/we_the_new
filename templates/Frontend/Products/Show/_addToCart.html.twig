@@ -1,0 +1,14 @@
+<div class="add-to-cart-content">
+	{% include 'Frontend/Products/Show/_breadcrumb.html.twig' %}
+	<h1>{{ product.name }}</h1>
+	<em class="text-muted">
+		À partir de
+		{{ priceTTC(product|resolve_chepeast_variant)|format_currency('EUR') }}
+	</em>
+	<div class="row mt-4">
+		{% for productVariant in product.productVariants|sort((a, b) => a.size <=> b.size) %}
+			{% include 'Components/Cards/_variantCard.html.twig' %}
+		{% endfor %}
+	</div>
+	<a href="#" class="btn btn-secondary">Ajouter au panier</a>
+</div>

@@ -1,0 +1,4 @@
+.breadcrumb {
+    @include flex($gap: 0.5rem);
+    margin-bottom: 2rem;
+}

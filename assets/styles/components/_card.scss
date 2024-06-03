@@ -85,6 +85,27 @@
             gap: 1em;
         }
     }
+
+    &-variant {
+        @extend .col-md-3;
+        @include flex($direction: column, $align: center);
+
+        border-radius: $border-radius;
+        background: $primary;
+        color: $text-color;
+        text-align: center;
+        margin: 0 1rem 1rem;
+        padding: 1rem 0;
+
+        &-size {
+            font-weight: bold;
+            font-size: $h4-font-size;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .admin {

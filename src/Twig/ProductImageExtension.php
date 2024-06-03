@@ -12,6 +12,7 @@ class ProductImageExtension extends AbstractExtension
     {
         return [
             new \Twig\TwigFilter('main_image', [$this, 'getMainImage']),
+            new \Twig\TwigFilter('secondary_image', [$this, 'getSecondaryImage']),
         ];
     }
 
@@ -26,5 +27,20 @@ class ProductImageExtension extends AbstractExtension
         });
 
         return array_shift($mainImage) ?? null;
+    }
+
+    public function getSecondaryImage(Product $product): ?array
+    {
+        $images = [];
+
+        $images = array_filter($product->getImages()->toArray(), function (ProductImage $productImage) use ($images) {
+            if ($productImage->getType() !== 'main') {
+                $images[] = $productImage;
+
+                return $images;
+            }
+        });
+
+        return $images ?? null;
     }
 }
