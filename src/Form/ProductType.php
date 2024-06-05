@@ -60,17 +60,6 @@ class ProductType extends AbstractType
                 'multiple' => false,
                 'autocomplete' => true,
             ])
-            ->add('images', CollectionType::class, [
-                'label' => 'Images',
-                'entry_type' => ProductImageType::class,
-                'entry_options' => [
-                    'label' => false,
-                ],
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'delete_empty' => true,
-            ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
                 'attr' => [

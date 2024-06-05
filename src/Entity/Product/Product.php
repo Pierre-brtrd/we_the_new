@@ -45,13 +45,6 @@ class Product
     private ?Model $model = null;
 
     /**
-     * @var Collection<int, ProductImage>
-     */
-    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
-    // #[Assert\Valid]
-    private Collection $images;
-
-    /**
      * @var Collection<int, ProductVariant>
      */
     #[ORM\OneToMany(targetEntity: ProductVariant::class, mappedBy: 'product', orphanRemoval: true)]
@@ -66,7 +59,6 @@ class Product
 
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->productVariants = new ArrayCollection();
         $this->productAssociations = new ArrayCollection();
     }
@@ -144,36 +136,6 @@ class Product
     public function setModel(?Model $model): static
     {
         $this->model = $model;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, ProductImage>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(ProductImage $productImage): static
-    {
-        if (!$this->images->contains($productImage)) {
-            $this->images->add($productImage);
-            $productImage->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(ProductImage $productImage): static
-    {
-        if ($this->images->removeElement($productImage)) {
-            // set the owning side to null (unless already changed)
-            if ($productImage->getProduct() === $this) {
-                $productImage->setProduct(null);
-            }
-        }
 
         return $this;
     }
