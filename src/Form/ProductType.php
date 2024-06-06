@@ -47,6 +47,13 @@ class ProductType extends AbstractType
                 'multiple' => false,
                 'autocomplete' => true,
             ])
+            ->add('images', CollectionType::class, [
+                'entry_type' => ProductImageType::class,
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'delete_empty' => true,
+            ])
             ->add('model', EntityType::class, [
                 'label' => 'Modèle',
                 'placeholder' => 'Choisir un modèle',

@@ -24,6 +24,9 @@
 					{% endif %}
 				</td>
 				<td class="table-img">
+					{% if product|main_image %}
+						{{ dump(product|main_image) }}
+					{% endif %}
 				</td>
 				<td class="actions">
 					<div class="actions-container">

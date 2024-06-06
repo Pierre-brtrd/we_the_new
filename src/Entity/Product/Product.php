@@ -57,10 +57,17 @@ class Product
     #[Assert\Valid]
     private Collection $productAssociations;
 
+    /**
+     * @var Collection<int, ProductImage>
+     */
+    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $images;
+
     public function __construct()
     {
         $this->productVariants = new ArrayCollection();
         $this->productAssociations = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +211,36 @@ class Product
     {
         foreach ($this->productAssociations as $productAssociation) {
             $this->removeProductAssociation($productAssociation);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductImage>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ProductImage $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(ProductImage $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
         }
 
         return $this;
