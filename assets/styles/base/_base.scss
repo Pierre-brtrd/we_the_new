@@ -4,6 +4,10 @@ body {
     color: $text-color;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 img,
 figure,
 video {
