@@ -8,6 +8,7 @@ use App\Entity\Product\Product;
 use App\Filter\ProductFilter;
 use App\Form\AddToCartType;
 use App\Form\ProductFilterType;
+use App\Manager\CartManager;
 use App\Repository\Product\ModelRepository;
 use App\Repository\Product\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,7 +56,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/details/{slug}', name: '.show', methods: ['GET', 'POST'])]
-    public function show(?Product $product, Request $request): Response|RedirectResponse
+    public function show(?Product $product, Request $request, CartManager $cartManager): Response|RedirectResponse
     {
         if (!$product) {
             $this->addFlash('error', 'Produit non trouvé');
@@ -72,7 +73,17 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
+            $cart = $cartManager->getCurrentCart();
+
+            $cart->addOrderItem($orderItem);
+
+            $cartManager->save($cart);
+
+            $this->addFlash('success', 'Le produit a bien été ajouté au panier');
+
+            return $this->redirectToRoute('app.products.show', [
+                'slug' => $product->getSlug(),
+            ]);
         }
 
         return $this->render('Frontend/Products/show.html.twig', [

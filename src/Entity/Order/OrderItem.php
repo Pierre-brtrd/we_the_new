@@ -32,6 +32,12 @@ class OrderItem
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $orderRef = null;
 
+
+    public function equals(OrderItem $orderItem): bool
+    {
+        return $this->getProductVariant()->getId() === $orderItem->getProductVariant()->getId();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
