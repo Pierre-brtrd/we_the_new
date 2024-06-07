@@ -19,12 +19,12 @@ class Order
 {
     use DateTimeTrait;
 
-    public const STATUS_NEW='new';
-    public const STATUS_CART='cart';
-    public const STATUS_AWAITING_PAYMENT='awaiting_payment';
-    public const STATUS_AWAITING_SHIPPING='shipping';
-    public const STATUS_AWAITING_COMPLETED='completed';
-    public const STATUS_AWAITING_CANCELED='canceled';
+    public const STATUS_NEW = 'new';
+    public const STATUS_CART = 'cart';
+    public const STATUS_AWAITING_PAYMENT = 'awaiting_payment';
+    public const STATUS_AWAITING_SHIPPING = 'shipping';
+    public const STATUS_AWAITING_COMPLETED = 'completed';
+    public const STATUS_AWAITING_CANCELED = 'canceled';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,7 +36,7 @@ class Order
     private ?string $number = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\Length(max:255)]
+    #[Assert\Length(max: 255)]
     #[Assert\Choice(
         choices: [
             self::STATUS_CART,
@@ -50,13 +50,12 @@ class Order
     private ?string $status = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
     /**
      * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef')]
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef', cascade: ['persist', 'remove'])]
     private Collection $orderItems;
 
     public function __construct()
@@ -115,10 +114,16 @@ class Order
 
     public function addOrderItem(OrderItem $orderItem): static
     {
-        if (!$this->orderItems->contains($orderItem)) {
-            $this->orderItems->add($orderItem);
-            $orderItem->setOrderRef($this);
+        foreach ($this->orderItems as $existingOrderItem) {
+            if ($existingOrderItem->equals($orderItem)) {
+                $existingOrderItem->setQuantity($existingOrderItem->getQuantity() + 1);
+
+                return $this;
+            }
         }
+
+        $this->orderItems[] = $orderItem;
+        $orderItem->setOrderRef($this);
 
         return $this;
     }

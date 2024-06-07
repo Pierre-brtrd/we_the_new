@@ -28,7 +28,6 @@ class CartManager
         $user = $this->security->getUser();
 
         if (!$cart) {
-
             if ($user) {
                 $cart = $this->orderRepository->findLastCartByUser($user);
             }
@@ -47,9 +46,9 @@ class CartManager
 
     public function save(Order $order): void
     {
-        $this->cartSessionStorage->setCart($order);
         $this->em->persist($order);
         $this->em->flush();
+        $this->cartSessionStorage->setCart($order);
     }
 
     public function mergeCart(Order $cartDb, Order $cartSession): Order

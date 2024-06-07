@@ -2,10 +2,10 @@
 
 namespace App\Entity\Order;
 
-use App\Entity\Product\ProductVariant;
-use App\Entity\Traits\DateTimeTrait;
-use App\Repository\Order\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\DateTimeTrait;
+use App\Entity\Product\ProductVariant;
+use App\Repository\Order\OrderItemRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class OrderItem
 {
     use DateTimeTrait;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -31,6 +31,12 @@ class OrderItem
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $orderRef = null;
+
+
+    public function equals(OrderItem $orderItem): bool
+    {
+        return $this->getProductVariant()->getId() === $orderItem->getProductVariant()->getId();
+    }
 
     public function getId(): ?int
     {
