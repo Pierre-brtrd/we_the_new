@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class CartSessionStorage {
 
     private const CART_SESSION_KEY = 'cart_id';
-    private function __construct (
+    public function __construct (
         private RequestStack $requestStack,
         private OrderRepository $orderRepository,
     ){}

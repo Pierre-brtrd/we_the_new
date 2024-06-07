@@ -4,9 +4,9 @@ namespace App\Manager;
 
 use App\Entity\Order\Order;
 use App\Factory\OrderFactory;
-use App\Repository\Order\OrderRepository;
 use App\Storage\CartSessionStorage;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\Order\OrderRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class CartManager {
@@ -59,9 +59,9 @@ class CartManager {
      * @return void
      */
     public function save(Order $order): void {
-        $this->cartSessionStorage->setCart($order);
         $this->em->persist($order);
         $this->em->flush();
+        $this->cartSessionStorage->setCart($order);
     }
 
     private function mergeCart(Order $cartDB, Order $cartSession): Order {
