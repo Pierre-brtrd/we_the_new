@@ -44,3 +44,14 @@ form {
         }
     }
 }
+
+.form-add-to-cart {
+    .input-radio-add-to-cart {
+        display:none;
+    }
+    .card-variant {
+        &:has(input[type="radio"]:checked) {
+            border: 2px solid $secondary;
+        }
+    }
+}

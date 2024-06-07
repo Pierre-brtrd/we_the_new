@@ -32,6 +32,11 @@ class OrderItem
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
     private ?Order $orderRef = null;
 
+    public function equals(OrderItem $orderItem): bool {
+        
+        return $this->getProductVariant()->getId() === $orderItem->getProductVariant()->getId();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
