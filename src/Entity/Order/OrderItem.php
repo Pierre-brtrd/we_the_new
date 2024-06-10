@@ -26,12 +26,22 @@ class OrderItem
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Veuillez sélectionner une taille')]
     private ?ProductVariant $productVariant = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Order $orderRef = null;
 
+    public function getPriceHT(): float
+    {
+        return $this->getProductVariant()->getPriceHT() * $this->getQuantity();
+    }
+
+    public function getPriceTTC(): float
+    {
+        return $this->getPriceHT() * (1 + $this->getProductVariant()->getTaxe()->getRate());
+    }
 
     public function equals(OrderItem $orderItem): bool
     {

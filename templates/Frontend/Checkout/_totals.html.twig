@@ -1,0 +1,17 @@
+<aside class="cart-total-container">
+	<div class="cart-total">
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">Total HT</p>
+			<p class="cart-total-line-price">{{ cart.priceHT|format_currency('EUR') }}</p>
+		</div>
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">Total Taxe</p>
+			<p class="cart-total-line-price">{{ (cart.priceTTC - cart.priceHT)|format_currency('EUR') }}</p>
+		</div>
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">Total TTC</p>
+			<p class="cart-total-line-price">{{ cart.priceTTC|format_currency('EUR') }}</p>
+		</div>
+	</div>
+	<a href="#" class="btn btn-secondary mt-3 w-100">Valider mon panier</a>
+</aside>
