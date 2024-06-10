@@ -66,6 +66,7 @@ class ProductController extends AbstractController
 
         $orderItem = (new OrderItem)
             ->setQuantity(1);
+            
         $form = $this->createForm(AddToCartType::class, $orderItem, [
             'product' => $product,
         ]);

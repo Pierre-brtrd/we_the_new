@@ -1,4 +1,24 @@
 .breadcrumb {
-    @include flex($gap: 0.5rem);
-    margin-bottom: 2rem;
+  @include flex($gap: 0.5rem);
+  margin-bottom: 1.5rem;
+
+  &-checkout {
+    margin-bottom: 1rem;
+
+    &-list {
+      @include grid(repeat(4, 1fr), 1rem);
+      text-align: center;
+    }
+
+    &-item {
+      border-bottom: 1px solid lighten($text-color, 40%);
+      color: lighten($text-color, 40%);
+      font-weight: bold;
+
+      &.active {
+        border-bottom: 1px solid $text-color;
+        color: $text-color;
+      }
+    }
+  }
 }
