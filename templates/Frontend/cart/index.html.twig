@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('checkout') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('checkout') }}
+{% endblock %}
+
+{% block title %}
+    Votre panier
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="container mt-2">
+    {% include 'Frontend/Checkout/breadcrumb.html.twig' %}
+        <div class="row">
+            <div class="col-md-8">
+            {% if cart.orderItems|length > 0 %}
+                {% include 'Frontend/Cart/_formCart.html.twig' %}     
+            {% else %}
+                <div class="alert-info" role="alert">
+                    Votre panier est vide !
+                </div>
+            {% endif %}
+            </div>
+
+            <div class="col-md-4">
+                {% include 'Frontend/Checkout/_totals.html.twig' %}
+            </div>
+        </div>
+       
+    </section>
+{% endblock %}

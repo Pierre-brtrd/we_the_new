@@ -1,0 +1,28 @@
+.cart-total {
+    border-top:1px solid $text-color;
+    border-bottom: 1px solid $text-color;
+    padding: 1rem 0;
+
+    &-container {
+        position: sticky;
+        top: 5rem;
+    }
+
+    &-line {
+        @include grid(repeat(2, 1fr), 0.5rem);
+        font-weight: bold;
+
+        &:not(:first-of-type) {
+            margin-top: 1rem;
+        }
+
+        &-price {
+            text-align: end;
+        }
+
+        p {
+            margin-bottom: 0;
+            
+        }
+    }
+}

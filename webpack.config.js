@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('admin', './assets/admin.js')
+    .addEntry('checkout', './assets/checkout.js')
     .addEntry('login', './assets/login.js')
     .addEntry('home', './assets/home.js')
     .addEntry('shop', './assets/shop.js')
