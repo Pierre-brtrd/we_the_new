@@ -7,6 +7,7 @@
 	</em>
 
 	{{ form_start(form, {attr: { class: 'form-add-to-cart' }})}}
+	{{ form_errors(form.productVariant) }}
 
 	<div class="row mt-4">
 		{% for productVariantChoice in form.productVariant.vars.choices %}
