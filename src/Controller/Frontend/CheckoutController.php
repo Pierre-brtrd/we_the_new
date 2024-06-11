@@ -2,9 +2,11 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\Delivery;
 use App\Entity\User;
 use App\Entity\Adress;
 use App\Form\AddressType;
+use App\Form\DeliveryType;
 use App\Manager\CartManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,11 +63,5 @@ class CheckoutController extends AbstractController
             'form' => $form,
             'addresses' => $user->getAddresses(),
         ]);
-    }
-
-    #[Route('/shipping', name:'.shipping', methods: ['GET', 'POST'])]
-    public function shipping(): Response {
-        dd('shipping');
-        //TODO
     }
 }
