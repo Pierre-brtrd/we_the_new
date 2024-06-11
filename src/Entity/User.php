@@ -79,9 +79,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+    /**
+     * @var Collection<int, Adress>
+     */
+    #[ORM\ManyToMany(targetEntity: Adress::class, inversedBy: 'users')]
+    private Collection $addresses;
+
+    #[ORM\ManyToOne]
+    private ?Adress $defaultAddress = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -238,6 +248,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function hasAddress(Adress $address): bool {
+        foreach($this->addresses as $userAddress) {
+            if(
+                $address->getAddress() === $userAddress->getAddress() &&
+                $address->getZipCode() === $userAddress()->getZipCode &&
+                $address->getCity() === $userAddress->getCity()
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return Collection<int, Adress>
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Adress $address): static
+    {
+        if($this->defaultAddress === null) {
+            $this->setDefaultAddress($address);
+        }
+
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Adress $address): static
+    {
+        $this->addresses->removeElement($address);
+
+        return $this;
+    }
+
+    public function getDefaultAddress(): ?Adress
+    {
+        return $this->defaultAddress;
+    }
+
+    public function setDefaultAddress(?Adress $defaultAddress): static
+    {
+        $this->defaultAddress = $defaultAddress;
 
         return $this;
     }
