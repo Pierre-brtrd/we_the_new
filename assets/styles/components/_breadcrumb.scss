@@ -15,6 +15,10 @@
       color: lighten($text-color, 40%);
       font-weight: bold;
 
+      a{
+        width: 100%;
+      }
+
       &.active {
         border-bottom: 1px solid $text-color;
         color: $text-color;
