@@ -25,5 +25,8 @@
             </p>
         </div>
     </div>
-    <a href="#" class="btn btn-secondary mt-4 w-100">Valider mon panier</a>
+    {% if app.request.get('_route') == 'app.cart.show' %}
+        <a href="{{ path('app.checkout.address') }}" class="btn btn-secondary mt-4 w-100">Valider mon panier</a>
+    {% endif %}
+    
 </aside>

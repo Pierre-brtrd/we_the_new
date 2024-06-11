@@ -1,10 +1,10 @@
 <nav class="breadcrumb-checkout">
     <ul class="breadcrumb-checkout-list">
-        <li class="breadcrumb-checkout-item {{ path('app.cart.show') ? 'active' }}">
+        <li class="breadcrumb-checkout-item {{ app.request.get('_route') == 'app.cart.show' ? 'active' }}">
             <a href="{{ path('app.cart.show') }}">Panier</a>
         </li>
-        <li class="breadcrumb-checkout-item">
-            <a href="#">Informations</a>
+        <li class="breadcrumb-checkout-item {{ app.request.get('_route') == 'app.checkout.address' ? 'active' }}">
+            <a href="{{ path('app.checkout.address') }}">Informations</a>
         </li>
         <li class="breadcrumb-checkout-item">
             <a href="#">Livraison</a>
