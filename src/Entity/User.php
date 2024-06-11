@@ -79,9 +79,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+    /**
+     * @var Collection<int, Address>
+     */
+    #[ORM\ManyToMany(targetEntity: Address::class, mappedBy: 'users')]
+    private Collection $addresses;
+
+    #[ORM\ManyToOne]
+    private ?Address $defaultAddress = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -238,6 +248,64 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function hasAddress(Address $address): bool
+    {
+        foreach ($this->addresses as $userAddress) {
+            if (
+                $address->getAddress() === $userAddress->getAddress() &&
+                $address->getZipCode() === $userAddress->getZipCode() &&
+                $address->getCity() === $userAddress->getCity()
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAddresses(): Collection
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address): static
+    {
+        if ($this->defaultAddress === null) {
+            $this->setDefaultAddress($address);
+        }
+
+        if (!$this->addresses->contains($address)) {
+            $this->addresses->add($address);
+            $address->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAddress(Address $address): static
+    {
+        if ($this->addresses->removeElement($address)) {
+            $address->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getDefaultAddress(): ?Address
+    {
+        return $this->defaultAddress;
+    }
+
+    public function setDefaultAddress(?Address $defaultAddress): static
+    {
+        $this->defaultAddress = $defaultAddress;
 
         return $this;
     }
