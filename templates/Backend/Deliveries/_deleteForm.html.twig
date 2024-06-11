@@ -1,0 +1,5 @@
+<form action="{{path ('admin.deliveries.delete', {id: delivery.id}) }}" method='POST' onsubmit="return confirm ('Etes vous sûr de vouloir supprimer ce gender?')">
+	<input type="hidden" name="token" value="{{ csrf_token('delete' ~ delivery.id)}}">
+	<button type="submit">
+		Supprimer</button>
+</form>

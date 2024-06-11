@@ -1,0 +1,14 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}
+    Modification d'une livraison
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class="container mt-5">
+        <h1 class="text-center mb-4">Modifier une livraison</h1>
+        {% include 'Backend/Deliveries/_form.html.twig' %}
+        <a href="{{ path('admin.deliveries.index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    </section>
+{% endblock %}

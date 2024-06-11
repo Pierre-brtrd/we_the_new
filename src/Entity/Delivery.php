@@ -29,6 +29,7 @@ class Delivery
 
     #[ORM\Column]
     #[Assert\NotBlank()]
+    #[Assert\PositiveOrZero()]
     private ?float $price = null;
 
     public function getId(): ?int
