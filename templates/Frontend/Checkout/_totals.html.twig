@@ -8,12 +8,26 @@
             <p class="cart-total-line-content">Total Taxes</p>
             <p class="cart-total-line-price">{{ (cart.priceTTC - cart.priceHT)|format_currency('EUR') }}</p>
         </div>
+        {% if app.request.get('_route') == 'app.checkout.recap' %}
+            <div class="cart-total-line">
+                <p class="cart-total-line-content">Total livraison</p>
+                <p class="cart-total-line-price">{{ (cart.shippings|last.delivery.price)|format_currency('EUR') }}</p>
+            </div>
+        {% endif %}
         <div class="cart-total-line">
             <p class="cart-total-line-content">Total TTC
-                <br>
-                <em class="text-muted">(Hors coût de livraison)</em>
+                {% if app.request.get('_route') != 'app.checkout.recap' %}
+                    <br>
+                    <em class="text-muted">(Hors coût de livraison)</em>
+                {% endif %}
             </p>
-            <p class="cart-total-line-price">{{ cart.priceTTC|format_currency('EUR') }}</p>
+            <p class="cart-total-line-price">
+                {% if app.request.get('_route') == 'app.checkout.recap' %}
+                    {{ (cart.priceTTC + (cart.shippings|last.delivery.price))|format_currency('EUR') }}
+                {% else %} 
+                    {{ (cart.priceTTC)|format_currency('EUR') }}   
+                {% endif %}
+            </p>
         </div>
     </div>
     {% if app.request.get('_route') == 'app.cart.show' %}

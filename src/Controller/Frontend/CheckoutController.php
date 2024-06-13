@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/checkout', name: 'app.checkout')]
@@ -101,4 +102,20 @@ class CheckoutController extends AbstractController
             'cart' => $cart,
         ]);
     }
+
+    #[Route('/recap', name: '.recap', methods: ['GET', 'POST'])]
+    public function recap(): Response|RedirectResponse 
+    {
+        $cart = $this->cartManager->getCurrentCart();
+
+        if($cart->getOrderItems()->isEmpty()) {
+            $this->addFlash('error', 'Vous n\'avez pas de commande en cours');
+            return $this->redirectToRoute('app.cart.show');
+        }
+
+        return $this->render('Frontend/Checkout/recap.html.twig', [
+            'cart' => $cart,
+        ]);
+    }
+
 }

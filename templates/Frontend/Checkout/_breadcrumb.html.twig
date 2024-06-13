@@ -9,8 +9,8 @@
         <li class="breadcrumb-checkout-item {{ app.request.get('_route') == 'app.checkout.shipping' ? 'active' }}" >
             <a href="{{ path('app.checkout.shipping') }}">Livraison</a>
         </li>
-        <li class="breadcrumb-checkout-item">
-            <a href="#">Paiement</a>
+        <li class="breadcrumb-checkout-item {{ app.request.get('_route') == 'app.checkout.recap' ? 'active' }}">
+            <a href="{{ path('app.checkout.recap') }}">Récapitulatif</a>
         </li>
     </ul>
 </nav>
