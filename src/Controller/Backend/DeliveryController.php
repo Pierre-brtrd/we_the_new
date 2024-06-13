@@ -2,7 +2,7 @@
 
 namespace App\Controller\Backend;
 
-use App\Entity\Delivery;
+use App\Entity\Delivery\Delivery;
 use App\Form\DeliveryType;
 use App\Repository\DeliveryRepository;
 use Doctrine\ORM\EntityManagerInterface;
