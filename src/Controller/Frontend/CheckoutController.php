@@ -4,8 +4,11 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Address;
 use App\Entity\Delivery\Shipping;
+use App\Entity\Order\Payment;
 use App\Entity\User;
+use App\Factory\StripeFactory;
 use App\Form\AddressType;
+use App\Form\PaymentType;
 use App\Form\ShippingCheckoutType;
 use App\Manager\CartManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +17,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/checkout', name: 'app.checkout')]
 class CheckoutController extends AbstractController
@@ -106,7 +110,7 @@ class CheckoutController extends AbstractController
     }
 
     #[Route('/recap', name: '.recap', methods: ['GET', 'POST'])]
-    public function recap(): Response|RedirectResponse
+    public function recap(Request $request, StripeFactory $stripeFactory): Response|RedirectResponse
     {
         $cart = $this->cartManager->getCurrentCart();
 
@@ -116,8 +120,48 @@ class CheckoutController extends AbstractController
             return $this->redirectToRoute('app.cart.show');
         }
 
+        $payment = (new Payment)
+            ->setStatus(Payment::STATUS_NEW)
+            ->setUser($this->getUser())
+            ->setOrderRef($cart);
+
+        $form = $this->createForm(PaymentType::class, $payment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $payment->setStatus(Payment::STATUS_NEW);
+
+            $this->em->persist($payment);
+            $this->em->flush();
+
+            $session = $stripeFactory->createSession(
+                $cart,
+                $this->generateUrl('app.checkout.success', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                $this->generateUrl('app.checkout.cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            );
+
+            return $this->redirect($session->url);
+        }
+
         return $this->render('Frontend/Checkout/recap.html.twig', [
             'cart' => $cart,
+            'form' => $form,
         ]);
+    }
+
+    #[Route('/success', name: '.success', methods: ['GET'])]
+    public function success(): RedirectResponse
+    {
+        $this->addFlash('success', 'Votre commande a bien été enregistrée.');
+
+        return $this->redirectToRoute('app.home');
+    }
+
+    #[Route('/cancel', name: '.cancel', methods: ['GET'])]
+    public function cancel(): RedirectResponse
+    {
+        $this->addFlash('danger', 'Votre paiement a été annulé.');
+
+        return $this->redirectToRoute('app.home');
     }
 }
