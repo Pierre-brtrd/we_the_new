@@ -10,6 +10,7 @@ use App\Form\ShippingCheckoutFormType;
 use App\Manager\CartManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -97,6 +98,22 @@ class CheckoutController extends AbstractController
 
         return $this->render('Frontend/Checkout/shipping.html.twig', [
             'form' => $form,
+            'cart' => $cart,
+        ]);
+    }
+
+    #[Route('/recap', name: '.recap', methods: ['GET', 'POST'])]
+    public function recap(): Response|RedirectResponse {
+
+        $cart = $this->cartManager->getCurrentCart();
+
+        if ($cart->getOrderItems()->isEmpty()) {
+            $this->addFlash('error', 'Aucune commande en cours');
+
+            return $this->redirectToRoute('app.cart.show');
+        }
+
+        return $this->render('Frontend/Checkout/recap.html.twig', [
             'cart' => $cart,
         ]);
     }

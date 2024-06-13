@@ -1,32 +1,49 @@
 <aside class="cart-total-container">
-    <div class="cart-total">
-        <div class="cart-total-line">
-            <p class="cart-total-line-content">
-                Total HT
-            </p>
-            <p class="cart-total-line-price">
-                {{ cart.priceHT|format_currency('EUR')}}
-            </p>
-        </div>
-        <div class="cart-total-line">
-            <p class="cart-total-line-content">
-                Total Taxe
-            </p>
-            <p class="cart-total-line-price">
-                {{ (cart.priceTTC - cart.priceHT)|format_currency('EUR')}}
-            </p>
-        </div>
-        <div class="cart-total-line">
-            <p class="cart-total-line-content">
-                Total TTC<br/><em class="text-muted">(Hors coût livraison)</em>
-            </p>
-            <p class="cart-total-line-price">
-                {{ cart.priceTTC|format_currency('EUR')}}
-            </p>
-        </div>
-    </div>
-    {% if app.request.get('_route') == 'app.cart.show' %}
-        <a href="{{ path('app.checkout.address') }}" class="btn btn-secondary mt-4 w-100">Valider mon panier</a>
-    {% endif %}
-    
+	<div class="cart-total">
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">
+				Total HT
+			</p>
+			<p class="cart-total-line-price">
+				{{ cart.priceHT|format_currency('EUR')}}
+			</p>
+		</div>
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">
+				Total Taxe
+			</p>
+			<p class="cart-total-line-price">
+				{{ (cart.priceTTC - cart.priceHT)|format_currency('EUR')}}
+			</p>
+		</div>
+		{% if app.request.get('_route') == 'app.checkout.recap' %}
+			<div class="cart-total-line">
+				<p class="cart-total-line-content">
+					Total livraison
+				</p>
+				<p class="cart-total-line-price">
+					{{cart.shippings|last.delivery.price|format_currency('EUR')}}
+				</p>
+			</div>
+		{% endif %}
+		<div class="cart-total-line">
+			<p class="cart-total-line-content">
+				Total TTC<br/>
+				{% if app.request.get('_route') != 'app.checkout.recap' %}
+					<em class="text-muted">(Hors coût livraison)</em>
+				{% endif %}
+			</p>
+			<p class="cart-total-line-price">
+				{% if app.request.get('_route') == 'app.checkout.recap' %}
+					{{ (cart.priceTTC + cart.shippings|last.delivery.price)|format_currency('EUR') }}
+				{% else %}
+					{{ cart.priceTTC|format_currency('EUR')}}
+				{% endif %}
+			</p>
+		</div>
+	</div>
+	{% if app.request.get('_route') == 'app.cart.show' %}
+		<a href="{{ path('app.checkout.address') }}" class="btn btn-secondary mt-4 w-100">Valider mon panier</a>
+	{% endif %}
+
 </aside>
