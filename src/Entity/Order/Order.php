@@ -2,6 +2,7 @@
 
 namespace App\Entity\Order;
 
+use App\Entity\Shipping;
 use App\Entity\Traits\DateTimeTrait;
 use App\Entity\User;
 use App\Repository\Order\OrderRepository;
@@ -58,9 +59,16 @@ class Order
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef', cascade: ['persist', 'remove'], orphanRemoval:true)]
     private Collection $orderItems;
 
+    /**
+     * @var Collection<int, Shipping>
+     */
+    #[ORM\OneToMany(targetEntity: Shipping::class, mappedBy: 'orderRef', orphanRemoval: true)]
+    private Collection $shippings;
+
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->shippings = new ArrayCollection();
     }
 
     public function getPriceHT(): float {
@@ -172,6 +180,36 @@ class Order
     public function removeAllOrderItems(): static {
         foreach($this->orderItems as $orderItem) {
             $this->removeOrderItem($orderItem);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shipping>
+     */
+    public function getShippings(): Collection
+    {
+        return $this->shippings;
+    }
+
+    public function addShipping(Shipping $shipping): static
+    {
+        if (!$this->shippings->contains($shipping)) {
+            $this->shippings->add($shipping);
+            $shipping->setOrderRef($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShipping(Shipping $shipping): static
+    {
+        if ($this->shippings->removeElement($shipping)) {
+            // set the owning side to null (unless already changed)
+            if ($shipping->getOrderRef() === $this) {
+                $shipping->setOrderRef(null);
+            }
         }
 
         return $this;
