@@ -1,0 +1,6 @@
+{% form_theme form "Form/customFormTheme.html.twig" %}
+
+{{ form_start(form, {attr: {class: 'form-shipping'}}) }}
+{{ form_widget(form) }}
+<button type="submit" class="btn btn-secondary">Valider la méthode de livraison</button>
+{{ form_end(form) }}

@@ -4,6 +4,8 @@ namespace App\Entity\Delivery;
 
 use App\Entity\Traits\EnableTrait;
 use App\Repository\Delivery\DeliveryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,6 +33,17 @@ class Delivery
     #[Assert\NotBlank]
     #[Assert\PositiveOrZero]
     private ?float $price = null;
+
+    /**
+     * @var Collection<int, Shipping>
+     */
+    #[ORM\OneToMany(targetEntity: Shipping::class, mappedBy: 'delivery')]
+    private Collection $shippings;
+
+    public function __construct()
+    {
+        $this->shippings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +82,36 @@ class Delivery
     public function setPrice(float $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shipping>
+     */
+    public function getShippings(): Collection
+    {
+        return $this->shippings;
+    }
+
+    public function addShipping(Shipping $shipping): static
+    {
+        if (!$this->shippings->contains($shipping)) {
+            $this->shippings->add($shipping);
+            $shipping->setDelivery($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShipping(Shipping $shipping): static
+    {
+        if ($this->shippings->removeElement($shipping)) {
+            // set the owning side to null (unless already changed)
+            if ($shipping->getDelivery() === $this) {
+                $shipping->setDelivery(null);
+            }
+        }
 
         return $this;
     }
