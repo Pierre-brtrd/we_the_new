@@ -2,6 +2,7 @@
 
 namespace App\Entity\Product;
 
+use App\Entity\Delivery\Delivery;
 use App\Entity\Traits\DateTimeTrait;
 use App\Entity\Traits\EnableTrait;
 use App\Repository\Product\ProductRepository;
@@ -63,6 +64,9 @@ class Product
     #[ORM\OneToMany(targetEntity: ProductAssociation::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
     #[Assert\Valid]
     private Collection $productAssociations;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Delivery $delivery = null;
 
     public function __construct()
     {
@@ -243,6 +247,18 @@ class Product
         foreach ($this->productAssociations as $productAssociation) {
             $this->removeProductAssociation($productAssociation);
         }
+
+        return $this;
+    }
+
+    public function getDelivery(): ?Delivery
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(?Delivery $delivery): static
+    {
+        $this->delivery = $delivery;
 
         return $this;
     }

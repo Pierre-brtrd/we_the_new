@@ -1,0 +1,32 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}
+	Administration des livraisons
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Admin des livraisons</h1>
+		<a href="{{ path('admin.delivery.create') }}" class="btn btn-primary">Créer une livraison</a>
+		<div class="row gy-3 mt-2">
+			{% for delivery in deliverys %}
+				<div class="col-md-4">
+					<div class="card">
+						<p class="fw-bold">{{ delivery.name }}</p>
+                        <p class="fw-bold">{{delivery.description}}</p>
+                        <p class="fw-bold">{{delivery.price|format_currency('EUR')}}</p>
+						<div class="form-check form-switch" {{ stimulus_controller('switchVisibility') }}>
+							<input class="form-check-input" type="checkbox" id="switch-delivery-{{ delivery.id }}" data-switch-visibility-id="{{ delivery.id }}" {{ delivery.enable ? 'checked' }}/>
+							<label class="form-check-label text-{{ delivery.enable ? 'success' : 'danger' }}" for="switch-delivery-{{ delivery.id }}">{{ delivery.enable ? 'Actif' : 'Inactif' }}</label>
+						</div>
+						<div class="card-btn">
+							<a href="{{ path('admin.delivery.update', {id: delivery.id}) }}" class="btn btn-warning">Modifier</a>
+							<twig:DeleteForm action="{{ path('admin.delivery.delete', {id: delivery.id}) }}" message="Voulez-vous vraiment supprimer ce genre ?" csrftoken="{{ csrf_token('delete' ~ delivery.id) }}"/>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

@@ -12,7 +12,7 @@
 			<a href="#dashboard">
 				<i class="bi bi-house-gear-fill"></i>
 				<span class="menu-item-text">Dashboard</span>
-			</a>
+			</a> 
 		</li>
 		<li class="menu-item">
 			<a href="{{ path('admin.users.index') }}" class="{{ app.request.get('_route') == 'admin.users.index' ? 'active' }}">
@@ -48,6 +48,12 @@
 			<a href="{{ path('admin.models.index') }}" class="{{ app.request.get('_route') == 'admin.models.index' ? 'active' }}">
 				<i class="bi bi-tags-fill"></i>
 				<span class="menu-item-text">Models</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.delivery.index') }}" class="{{ app.request.get('_route') == 'admin.delivery.index' ? 'active' }}">
+				<i class="bi bi-tags-fill"></i>
+				<span class="menu-item-text">Livraisons</span>
 			</a>
 		</li>
 	</ul>
