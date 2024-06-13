@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/checkout', name: 'app.checkout')]
@@ -82,7 +83,7 @@ class CheckoutController extends AbstractController
         } else {
 
             $shipping = (new Shipping)
-            ->setStatus(Shipping::STATUS_NEW);
+                ->setStatus(Shipping::STATUS_NEW);
         }
 
         $form = $this->createForm(ShippingCheckoutType::class, $shipping);
@@ -101,6 +102,22 @@ class CheckoutController extends AbstractController
 
         return $this->render('Frontend/Checkout/shipping.html.twig', [
             'form' => $form,
+            'cart' => $cart,
+        ]);
+    }
+
+    #[Route('/recap', name: ".recap", methods: ['GET', 'POST'])]
+    public function recap(): Response| RedirectResponse
+    {
+        $cart = $this->cartManager->getCurrentcart();
+
+        if ($cart->getOrderItems()->isEmpty()) {
+            $this->addFlash('error', "Vous n'avez pas de command een cours");
+
+            return $this->redirectToRoute('app.cart.show');
+        }
+
+        return $this->render('Frontend/Checkout/recap.html.twig', [
             'cart' => $cart,
         ]);
     }
