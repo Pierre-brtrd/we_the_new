@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Order\Order;
+use App\Entity\Order\Payment;
 use App\Entity\Traits\DateTimeTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -88,10 +89,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne]
     private ?Address $defaultAddress = null;
 
+    /**
+     * @var Collection<int, Payment>
+     */
+    #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'user')]
+    private Collection $payments;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->addresses = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -252,13 +260,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function hasAddress(Address $address) {
-        foreach($this->addresses as $userAddress) {
+    public function hasAddress(Address $address)
+    {
+        foreach ($this->addresses as $userAddress) {
 
             if (
                 $address->getAddress() === $userAddress->getAddress() &&
                 $address->getZipCode() === $userAddress->getZipCode() &&
-                $address->getCity() === $userAddress->getCity() 
+                $address->getCity() === $userAddress->getCity()
             ) {
                 return true;
             }
@@ -276,7 +285,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function addAddress(Address $address): static
-    {   
+    {
         if ($this->defaultAddress === null) {
             $this->setDefaultAddress($address);
         }
@@ -303,6 +312,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDefaultAddress(?Address $defaultAddress): static
     {
         $this->defaultAddress = $defaultAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getUser() === $this) {
+                $payment->setUser(null);
+            }
+        }
 
         return $this;
     }

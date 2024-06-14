@@ -18,7 +18,7 @@ class AddToCartFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            
+
             ->add('productVariant', EntityType::class, [
                 'class' => ProductVariant::class,
                 'choice_label' => 'size',
@@ -29,8 +29,7 @@ class AddToCartFormType extends AbstractType
                         ->andWhere('pv.product = :product')
                         ->setParameter('product', $options['product']);
                 },
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

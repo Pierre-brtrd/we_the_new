@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Manager;
 
@@ -9,7 +9,8 @@ use App\Storage\CartSessionStorage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
-class CartManager {
+class CartManager
+{
 
     public function __construct(
         private EntityManagerInterface $em,
@@ -17,12 +18,13 @@ class CartManager {
         private CartSessionStorage $cartSessionStorage,
         private Security $security,
         private OrderRepository $orderRepository,
-        
-    ){
+
+    ) {
     }
-    
+
     // Get the current cart of the user
-    public function getCurrentCart(): Order {
+    public function getCurrentCart(): Order
+    {
         $cart = $this->cartSessionStorage->getCart();
 
         // On vérfie si un utilisateur est connecté
@@ -52,18 +54,19 @@ class CartManager {
 
 
     // Save the cart in database
-    public function saveCart(Order $order): void {
+    public function saveCart(Order $order): void
+    {
 
         $this->em->persist($order);
         $this->em->flush();
 
         $this->cartSessionStorage->setCart($order);
-
     }
 
-    private function mergeCart(Order $cartDb,Order $cartSession ): Order {
+    private function mergeCart(Order $cartDb, Order $cartSession): Order
+    {
 
-        foreach($cartDb->getOrderItems() as $item) {
+        foreach ($cartDb->getOrderItems() as $item) {
             $cartSession->addOrderItem($item);
         }
 

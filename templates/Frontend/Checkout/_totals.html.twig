@@ -43,7 +43,12 @@
 		</div>
 	</div>
 	{% if app.request.get('_route') == 'app.cart.show' %}
-		<a href="{{ path('app.checkout.address') }}" class="btn btn-secondary mt-4 w-100">Valider mon panier</a>
+		<a href="{{ path('app.checkout.address') }}" class="btn btn-secondary mt-2 w-100">Valider mon panier</a>
+	{% elseif app.request.get('_route') == 'app.checkout.recap' %}
+		{{ form_start(form) }}
+			{{ form_widget(form) }}
+			<button type="submit" class="btn btn-secondary mt-2" data-turbo="false">Payer</button>
+		{{ form_end(form) }}
 	{% endif %}
 
 </aside>

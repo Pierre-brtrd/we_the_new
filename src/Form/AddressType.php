@@ -34,9 +34,7 @@ class AddressType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Paris',
                 ]
-            ])
-            
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

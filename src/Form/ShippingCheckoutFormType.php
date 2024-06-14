@@ -21,15 +21,14 @@ class ShippingCheckoutFormType extends AbstractType
             ->add('delivery', EntityType::class, [
                 'class' => Delivery::class,
                 'choice_label' => 'name',
-                'query_builder' => function(DeliveryRepository $repo): QueryBuilder {
+                'query_builder' => function (DeliveryRepository $repo): QueryBuilder {
                     return $repo->createQueryBuilder('d')
-                    ->andWhere('d.enable = true')
-                    ->orderBy('d.name', 'ASC');
+                        ->andWhere('d.enable = true')
+                        ->orderBy('d.name', 'ASC');
                 },
                 'expanded' => true,
                 'multiple' => False,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

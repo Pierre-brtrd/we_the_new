@@ -42,6 +42,7 @@ class Shipping
 
     #[ORM\ManyToOne(inversedBy: 'shippings')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank()]
     private ?Delivery $delivery = null;
 
     public function getId(): ?int

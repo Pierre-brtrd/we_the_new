@@ -32,8 +32,8 @@ class CartFormType extends AbstractType
                     'class' => 'btn btn-secondary',
                 ]
             ]);
-        
-            $builder->addEventSubscriber(new ClearCartListener)
+
+        $builder->addEventSubscriber(new ClearCartListener)
             ->addEventSubscriber(new RemoveItemCartListener);
     }
 
