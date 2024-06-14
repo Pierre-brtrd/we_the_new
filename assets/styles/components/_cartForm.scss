@@ -1,0 +1,55 @@
+.form-cart {
+    &-btn {
+        @include flex(flex-end, center, $gap: 0.7rem);
+    }
+
+    &-item {
+        @include flex(space-between, stretch, $gap: 0.4rem);
+
+        @media screen and (max-width: 1023px) {
+            @include flex(space-between, $direction: column);
+
+            &-image,
+            &-info {
+                flex: 0 0 100%;
+            }
+
+            &-info {
+                width: 100%;
+            }
+        }
+
+        &:not(:first-of-type) {
+            margin-top: 1rem;
+        }
+
+        &-image {
+            flex: 0 0 40%;
+            background: $primary;
+        }
+
+        &-info {
+            flex: 1;
+            @include flex(space-between, $direction: column);
+
+            &-name {
+                font-weight: bold;
+                font-size: 1.4rem;
+                margin-bottom: 0;
+            }
+
+            &-footer {
+                @include flex(space-between, flex-end);
+                width: 100%;
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-price {
+                font-weight: bold;
+            }
+        }
+    }
+}

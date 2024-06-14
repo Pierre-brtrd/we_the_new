@@ -1,0 +1,12 @@
+{% block _shipping_checkout_delivery_row %}
+	<div class="form-shipping-list">
+		{% for shippingField in form.vars.choices %}
+			<label class="form-shipping-card" for="shipping_checkout_delivery_{{ shippingField.data.id }}">
+				<input type="radio" name="shipping_checkout[delivery]" id="shipping_checkout_delivery_{{ shippingField.data.id }}" value="{{ shippingField.data.id }}" {{ form.vars.value == shippingField.data.id ? 'checked' }}>
+				<p class="form-shipping-card-title">{{ shippingField.data.name }}</p>
+				<p class="form-shipping-card-description">{{ shippingField.data.description }}</p>
+				<p class="form-shipping-card-price">{{ shippingField.data.price|format_currency('EUR') }}</p>
+			</label>
+		{% endfor %}
+	</div>
+{% endblock %}
