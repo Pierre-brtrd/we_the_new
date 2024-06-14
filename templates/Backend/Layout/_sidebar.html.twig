@@ -50,5 +50,11 @@
 				<span class="menu-item-text">Models</span>
 			</a>
 		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.deliveries.index') }}" class="{{ app.request.get('_route') == 'admin.deliveries.index' ? 'active' }}">
+				<i class="bi bi-truck-front-fill"></i>
+				<span class="menu-item-text">Livraison</span>
+			</a>
+		</li>
 	</ul>
 </nav>

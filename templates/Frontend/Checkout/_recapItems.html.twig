@@ -1,0 +1,21 @@
+<div class="form-cart">
+    {% for orderItem in cart.orderItems %}
+        <div class="form-cart-item">
+            <div class="form-cart-item-img">
+                <a href="{{ path('app.products.show', {slug: orderItem.productVariant.product.slug}) }}">
+                    <img src="{{ vich_uploader_asset(orderItem.productVariant.product|main_image) }}" alt="{{ orderItem.productVariant.product.name }}" loading="lazy">
+                </a>
+            </div>
+            <div class="form-cart-item-info">
+                <div class="form-cart-item-info-description">
+                    <p class="form-cart-item-info-name">{{ orderItem.productVariant.product.name }}</p>
+                    <p class="form-cart-item-info-size">Taille {{ orderItem.productVariant.size }}</p>
+                </div>
+                <div class="form-cart-item-info-footer">
+                    <p class="form-cart-item-info-price">{{ orderItem.priceTTC|format_currency('EUR') }}</p>
+                    <p>Quantité : {{ orderItem.quantity }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

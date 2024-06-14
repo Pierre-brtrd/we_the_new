@@ -2,6 +2,7 @@
 
 namespace App\Entity\Order;
 
+use App\Entity\Shipping;
 use App\Entity\Traits\DateTimeTrait;
 use App\Entity\User;
 use App\Repository\Order\OrderRepository;
@@ -58,9 +59,23 @@ class Order
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderRef', cascade: ['persist', 'remove'], orphanRemoval:true)]
     private Collection $orderItems;
 
+    /**
+     * @var Collection<int, Shipping>
+     */
+    #[ORM\OneToMany(targetEntity: Shipping::class, mappedBy: 'orderRef', orphanRemoval: true)]
+    private Collection $shippings;
+
+    /**
+     * @var Collection<int, Payment>
+     */
+    #[ORM\OneToMany(targetEntity: Payment::class, mappedBy: 'orderRef', orphanRemoval: true)]
+    private Collection $payments;
+
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->shippings = new ArrayCollection();
+        $this->payments = new ArrayCollection();
     }
 
     public function getPriceHT(): float {
@@ -172,6 +187,66 @@ class Order
     public function removeAllOrderItems(): static {
         foreach($this->orderItems as $orderItem) {
             $this->removeOrderItem($orderItem);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Shipping>
+     */
+    public function getShippings(): Collection
+    {
+        return $this->shippings;
+    }
+
+    public function addShipping(Shipping $shipping): static
+    {
+        if (!$this->shippings->contains($shipping)) {
+            $this->shippings->add($shipping);
+            $shipping->setOrderRef($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShipping(Shipping $shipping): static
+    {
+        if ($this->shippings->removeElement($shipping)) {
+            // set the owning side to null (unless already changed)
+            if ($shipping->getOrderRef() === $this) {
+                $shipping->setOrderRef(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Payment>
+     */
+    public function getPayments(): Collection
+    {
+        return $this->payments;
+    }
+
+    public function addPayment(Payment $payment): static
+    {
+        if (!$this->payments->contains($payment)) {
+            $this->payments->add($payment);
+            $payment->setOrderRef($this);
+        }
+
+        return $this;
+    }
+
+    public function removePayment(Payment $payment): static
+    {
+        if ($this->payments->removeElement($payment)) {
+            // set the owning side to null (unless already changed)
+            if ($payment->getOrderRef() === $this) {
+                $payment->setOrderRef(null);
+            }
         }
 
         return $this;

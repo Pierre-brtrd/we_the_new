@@ -1,0 +1,6 @@
+{{ form_start(form, {attr: {class: 'card w-75 mx-auto mt-4'}}) }}
+
+{{ form_widget(form) }}
+
+<button type="submit" class="btn btn-primary" {{buttonLabel|default('save')}} >Créer un nouveau mode de livraison</button>
+{{ form_end(form) }}
