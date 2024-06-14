@@ -25,4 +25,5 @@ services:
     App\Factory\StripeFactory:
         arguments:
             $stripeSecretKey: "%env(STRIPE_SECRET_KEY)%"
+            $webhookSecret: '%env(STRIPE_WEBHOOK_SECRET)%'
             

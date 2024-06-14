@@ -23,7 +23,7 @@ class Order
     public const STATUS_NEW = 'new';
     public const STATUS_CART = 'cart';
     public const STATUS_AWAITING_PAYMENT = 'awaiting_payment';
-    public const STATUS_AWAITING_SHIPPING = 'shipping';
+    public const STATUS_SHIPPING = 'shipping';
     public const STATUS_AWAITING_COMPLETED = 'completed';
     public const STATUS_AWAITING_CANCELED = 'canceled';
 
@@ -43,7 +43,7 @@ class Order
             self::STATUS_CART,
             self::STATUS_NEW,
             self::STATUS_AWAITING_PAYMENT,
-            self::STATUS_AWAITING_SHIPPING,
+            self::STATUS_SHIPPING,
             self::STATUS_AWAITING_COMPLETED,
             self::STATUS_AWAITING_CANCELED,
         ]
