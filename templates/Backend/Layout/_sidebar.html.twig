@@ -15,6 +15,12 @@
 			</a>
 		</li>
 		<li class="menu-item">
+			<a href="{{ path('admin.adminOrder.index') }}" class="{{ app.request.get('_route') == 'admin.adminOrder.index' ? 'active' }}">
+				<i class="bi bi-people-fill"></i>
+				<span class="menu-item-text">Commandes</span>
+			</a>
+		</li>
+		<li class="menu-item">
 			<a href="{{ path('admin.users.index') }}" class="{{ app.request.get('_route') == 'admin.users.index' ? 'active' }}">
 				<i class="bi bi-people-fill"></i>
 				<span class="menu-item-text">Users</span>

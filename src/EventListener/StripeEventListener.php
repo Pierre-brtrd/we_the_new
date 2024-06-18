@@ -8,7 +8,6 @@ use App\Entity\Order\Payment;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\Order\OrderRepository;
 use App\Repository\Order\PaymentRepository;
-use InvalidArgumentException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 #[AsEventListener(event: 'payment_intent.succeeded', method: 'onPaymentSucceed')]

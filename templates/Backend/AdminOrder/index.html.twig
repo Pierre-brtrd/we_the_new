@@ -1,0 +1,13 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}
+	Administration des Commandes
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Administration des Commandes</h1>
+		{% include 'Backend/AdminOrder/_table.html.twig' %}
+	</section>
+{% endblock %}
