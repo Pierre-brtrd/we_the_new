@@ -46,6 +46,7 @@ class StripeEventListener
         // On met à jour le paiement et la commande
         $payment->setStatus(Payment::STATUS_PAID);
         $order->setStatus(Order::STATUS_SHIPPING);
+        $order->setNumber('ORD-' . $order->getId() . '-' . date('YmdHis'));
 
         $this->em->persist($payment);
         $this->em->persist($order);

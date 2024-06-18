@@ -22,6 +22,13 @@ body {
         .menu-item-text {
             opacity: 0;
         }
+
+        .sidebar-header {
+            a {
+                width: 0;
+                opacity: 0;
+            }
+        }
     }
 
     &-header {
