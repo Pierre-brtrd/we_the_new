@@ -1,0 +1,45 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}Administration des commandes | {{parent()}} {% endblock %}
+
+{% block body %}
+<section class="container mt-2">
+		<h1 class="text-center">Administration des commandes</h1>
+		<div class="row gy-3 mt-2">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Créée le</th>
+                    <th scope="col">Modifiée le</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for order in ordersadmin %}
+                    <tr>
+                        <th scope="row">{{ order.id }}</th>
+                        <td>{{ order.user.firstName }} {{ order.user.lastName}}</td>
+                        <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ order.updatedAt|date('Y-m-d H:i:s') }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>{{ order.priceTTC|format_currency('EUR') }}</td>
+                        <td>
+                            <div class="card-btn">
+                                <a href="{{ path('admin.orderadmin.show', {id: order.id}) }}" class="btn btn-primary">Voir la commande</a>
+                            </div> 
+                            <div class="btn btn-danger">
+                                {# <twig:DeleteForm action="{{ path('admin.orderadmin.delete', {id: order.id}) }}" message="Voulez-vous vraiment supprimer cette commande ?" csrftoken="{{ csrf_token('delete' ~ orderadmin.id) }}"/> #}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+		</div>
+	</section>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}Détails d'une commande | {{parent()}} {% endblock %}
+
+{% block body %}
+<section class="container mt-2">
+		<h1 class="text-center">Commande n° {{ order.id }}</h1>
+		<a href="{{ path('admin.orderadmin.index') }}" class="btn btn-primary">Retour à la liste</a>
+
+        <div class="row">
+            <div class="col-md-5">
+                <h2>Informations sur la commande</h2>
+                <p>Commande passée le {{ order.updatedAt|date('Y-m-d H:i')}} </p>
+                <p>Statut de la commande : {{ order.status }} </p>
+            </div>
+            <div class="col-md-7">
+                <h2>Informations sur l'utilisateur</h2>
+                <p>{{ order.user.fullName }}</p>
+                <p>{{ order.user.email }}</p>
+                <p>  </p>
+            </div>
+        </div>
+	</section>
+
+{% endblock %}
