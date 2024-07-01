@@ -1,0 +1,33 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}Administration des livraisons
+{{ parent() }}
+{% endblock %}
+
+{% block body %}
+<section class="container mt-2">
+    <h1 class="text-center">Administration des livraisons</h1>
+    <a href="{{path('admin.deliveries.create')}}" class='btn btn-primary'>Créer une livraison</a>
+    <div class="card-marque-list mt-4">
+    
+    {% for delivery in deliveries %} 
+    <div class="col-md-4 col-lg-12 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ delivery.name }}</h5>
+                            <p class="card-text">{{ delivery.description }}</p>
+                            <p class="card-text">{{ delivery.price|format_currency('EUR') }} </p>
+                            <p class="card-text">{{ delivery.enable ? 'Actif' : 'Inactif' }}</p>
+                            <div class="d-flex justify-content-between mt-auto">
+                                <a href="{{ path('admin.deliveries.edit', { id: delivery.id }) }}" class="btn btn-primary">
+                                    Modifier
+                                </a>
+                                {% include 'Backend/Deliveries/_deleteForm.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+    </div>
+</section>
+{% endblock %}

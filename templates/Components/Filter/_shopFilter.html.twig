@@ -1,0 +1,60 @@
+<div class="shop-filter">
+	{% if entity.getTotalItemCount > 0 %}
+		<p class="mb-0">{{ entity.getTotalItemCount }}
+			{{ entity.getTotalItemCount > 1 ? entityName ~ 's' : entityName }}</p>
+	{% else %}
+		<p class="mb-0">Aucun produit</p>
+	{% endif %}
+	<button type="button" class="shop-filter-btn" {{ stimulus_controller('slideFilter') }}>
+		<svg width="14" height="12" viewbox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g clip-path="url(#clip0_335_559)">
+				<path d="M13 8.66701H7M4.333 8.66701H1M13 3.33301H9.667M7 3.33301H1M4.333 10.667V6.66701M9.667 5.33301V1.33301" stroke="#080808" stroke-linecap="round" stroke-linejoin="round"/>
+			</g>
+			<defs>
+				<clipPath id="clip0_335_559">
+					<rect width="14" height="12" fill="white"/>
+				</clipPath>
+			</defs>
+		</svg>
+		Filtrer et trier
+	</button>
+	<div class="shop-filter-wrapper">
+		<div class="shop-filter-content">
+			<h2>Filtrer vos produits</h2>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Limit
+						</button>
+						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="triggerId">
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({limit:9, slug: app.request.get('slug')})) }}">9</a>
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({limit:18, slug: app.request.get('slug')})) }}">18</a>
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({limit:36, slug: app.request.get('slug')})) }}">36</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Ordonner par
+						</button>
+						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="triggerId">
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({sort: 'price', direction: 'ASC', slug: app.request.get('slug')})) }}">Le moins cher</a>
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({sort: 'price', direction: 'DESC', slug: app.request.get('slug')})) }}">Le plus cher</a>
+							<a class="dropdown-item text-end" href="{{ path('app.products.index', app.request.query.all()|merge({sort: 'p.name', direction: 'ASC', slug: app.request.get('slug')})) }}">De A à Z</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{ form_start(form) }}
+			{{ form_row(form.name) }}
+			<div class="row mb-3">
+				<div class="col-md-6">{{ form_widget(form.min) }}</div>
+				<div class="col-md-6">{{ form_widget(form.max) }}</div>
+			</div>
+			<button type="submit" class="btn btn-secondary">Filtrer</button>
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>

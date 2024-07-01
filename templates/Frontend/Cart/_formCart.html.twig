@@ -1,0 +1,33 @@
+{{ form_start(form,{attr:{class:'form-cart'}}) }}
+<div class="form-cart-btn">
+	{{ form_row(form.clear) }}
+	{{ form_row(form.save) }}
+</div>
+
+<div class="form-cart-list">
+	{% for orderItemField in form.orderItems %}
+		<div class="form-cart-item">
+			{% set orderItem = orderItemField.vars.value %}
+			<div class="form-cart-item-image">
+				<a href="{{path('app.products.show', {slug:orderItem.productvariant.product.slug}) }}">
+					<img src="{{vich_uploader_asset(orderItem.productVariant.product|main_image )}}" alt="{{ orderItem.productVariant.product.name}}" loading="lazy">
+				</a>
+			</div>
+			<div class="form-cart-item-info">
+				<div class="form-cart-item-info-description">
+					<p class="form-cart-item-info-name">{{orderItem.productVariant.product.name}}</p>
+					<p class="form-cart-item-info-size">Taille :
+						{{orderItem.productVariant.size}}</p>
+				</div>
+				<div class="form-cart-item-info-footer">
+					<p class="form-cart-item-info-price">{{ orderItem.priceTTC|format_currency('EUR')}}</p>
+					<div class="form-cart-item-info-quantity">
+						{{ form_row(orderItemField.quantity) }}
+						{{ form_row(orderItemField.remove) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+{{ form_end(form) }}

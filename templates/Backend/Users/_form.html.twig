@@ -1,0 +1,8 @@
+{{ form_start(form, {attr: {class: 'card w-75 mx-auto'}}) }}
+<div class="row">
+	<div class="col-md-6">{{ form_row(form.firstName) }}</div>
+	<div class="col-md-6">{{ form_row(form.lastName) }}</div>
+</div>
+{{ form_widget(form) }}
+<button type="submit" class="btn btn-primary">{{ buttonLabel|default('Save') }}</button>
+{{ form_end(form) }}

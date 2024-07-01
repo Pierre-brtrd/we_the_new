@@ -1,0 +1,21 @@
+<div class="add-to-cart-content">
+	{% include 'Frontend/Products/Show/_breadcrumb.html.twig' %}
+	<h1>{{ product.name }}</h1>
+	<em class="text-muted">
+		À partir de
+		{{ priceTTC(product|resolve_chepeast_variant)|format_currency('EUR') }}
+	</em>
+
+	{{ form_start(form, {attr: {class:'form-add-to-cart' }}) }}
+	{{ form_errors(form.productVariant) }}
+	<div class="row mt-4">
+		{% for productVariantChoice in form.productVariant.vars.choices %}
+			{%set productVariant = productVariantChoice.data %}
+
+			{% include 'Components/Cards/_variantCard.html.twig' %}
+		{% endfor %}
+	</div>
+	{{ form_row(form._token) }}
+	<button type='submit' class="btn btn-secondary">Ajouter au panier</button>
+	{{ form_end(form, {render_rest: false}) }}
+</div>

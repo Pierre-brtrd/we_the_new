@@ -1,0 +1,65 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    background: $primary;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f5f5f5;
+    z-index: 9999999999;
+
+    &-content {
+        @include flex(space-between, center);
+    }
+
+    &-links {
+        @include flex(center, center, $gap: 1rem);
+        &:not(.navbar-icons) {
+            flex: 1;
+        }
+
+        &.navbar-icons {
+            flex: 0.5;
+        }
+
+        .cart{
+            position: relative;
+            cursor: pointer;
+
+            &-count{
+                position: absolute;
+                background: white;
+                border-radius: 50%;
+                z-index: 2;
+                bottom:-0.5em;
+                right: -0.5em;
+                width: 1rem;
+                height: 1rem;
+                text-align: center;
+                font-size: 0.7em;
+
+
+            }
+        }
+    }
+
+    &-form {
+        flex: 1;
+        position: relative;
+
+        input {
+            width: 100%;
+            padding-right: 7%;
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $primary;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            width: max-content;
+        }
+    }
+}

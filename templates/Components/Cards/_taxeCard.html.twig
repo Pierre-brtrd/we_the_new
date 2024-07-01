@@ -1,0 +1,12 @@
+<div class="card">
+	<div class="card-marque-content">
+		<p class="card-marque-model-name mb-0">{{ taxe.name }}</p>
+		<p class="card-marque-name fw-bold">{{ taxe.rate * 100 }}%</p>
+	</div>
+	{% if app.request.get('_route') == 'admin.taxes.index' %}
+		<div class="card-btn">
+			<a href="{{ path('admin.taxes.edit', {id: taxe.id}) }}" class="btn btn-warning">Modifier</a>
+			<twig:DeleteForm action="{{ path('admin.taxes.delete', {id: taxe.id}) }}" message="Voulez-vous vraiment supprimer cette taxe ?" csrftoken="{{ csrf_token('delete' ~ taxe.id) }}"/>
+		</div>
+	{% endif %}
+</div>

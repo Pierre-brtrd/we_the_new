@@ -1,0 +1,66 @@
+<nav class="sidebar" id="sidebar" {{ stimulus_controller('sidebar') }}>
+	<div class="sidebar-header">
+		<a href="{{ path('app.home') }}" data-turbo="false">
+			{% include 'Frontend/Layout/_logo.html.twig' %}
+		</a>
+		<button class="toggle-btn" id="toggle-btn">
+			<i class="bi bi-list"></i>
+		</button>
+	</div>
+	<ul class="sidebar-menu">
+		<li class="menu-item">
+			<a href="#dashboard">
+				<i class="bi bi-house-gear-fill"></i>
+				<span class="menu-item-text">Dashboard</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.adminOrder.index') }}" class="{{ app.request.get('_route') == 'admin.adminOrder.index' ? 'active' }}">
+				<i class="bi bi-people-fill"></i>
+				<span class="menu-item-text">Commandes</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.users.index') }}" class="{{ app.request.get('_route') == 'admin.users.index' ? 'active' }}">
+				<i class="bi bi-people-fill"></i>
+				<span class="menu-item-text">Users</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.products.index') }}" class="{{ app.request.get('_route') == 'admin.products.index' ? 'active' }}">
+				<i class="bi bi-basket-fill"></i>
+				<span class="menu-item-text">Produits</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.taxes.index') }}" class="{{ app.request.get('_route') == 'admin.taxes.index' ? 'active' }}">
+				<i class="bi bi-cash-coin"></i>
+				<span class="menu-item-text">Taxes</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.genders.index') }}" class="{{ app.request.get('_route') == 'admin.genders.index' ? 'active' }}">
+				<i class="bi bi-gender-ambiguous"></i>
+				<span class="menu-item-text">Genres</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.marques.index') }}" class="{{ app.request.get('_route') == 'admin.marques.index' ? 'active' }}">
+				<i class="bi bi-badge-tm-fill"></i>
+				<span class="menu-item-text">Marques</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.models.index') }}" class="{{ app.request.get('_route') == 'admin.models.index' ? 'active' }}">
+				<i class="bi bi-tags-fill"></i>
+				<span class="menu-item-text">Models</span>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href="{{ path('admin.deliveries.index') }}" class="{{ app.request.get('_route') == 'admin.deliveries.index' ? 'active' }}">
+				<i class="bi bi-truck-front-fill"></i>
+				<span class="menu-item-text">Méthode de livraisons</span>
+			</a>
+		</li>
+	</ul>
+</nav>

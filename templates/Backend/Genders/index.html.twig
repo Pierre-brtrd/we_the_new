@@ -1,0 +1,30 @@
+{% extends 'Backend/base.html.twig' %}
+
+{% block title %}
+	Administration des genres
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		<h1 class="text-center">Admin des genres</h1>
+		<a href="{{ path('admin.genders.create') }}" class="btn btn-primary">Créer un genre</a>
+		<div class="row gy-3 mt-2">
+			{% for gender in genders %}
+				<div class="col-md-4">
+					<div class="card">
+						<p class="fw-bold">{{ gender.name }}</p>
+						<div class="form-check form-switch" {{ stimulus_controller('switchVisibility') }}>
+							<input class="form-check-input" type="checkbox" id="switch-gender-{{ gender.id }}" data-switch-visibility-id="{{ gender.id }}" {{ gender.enable ? 'checked' }}/>
+							<label class="form-check-label text-{{ gender.enable ? 'success' : 'danger' }}" for="switch-gender-{{ gender.id }}">{{ gender.enable ? 'Actif' : 'Inactif' }}</label>
+						</div>
+						<div class="card-btn">
+							<a href="{{ path('admin.genders.edit', {id: gender.id}) }}" class="btn btn-warning">Modifier</a>
+							<twig:DeleteForm action="{{ path('admin.genders.delete', {id: gender.id}) }}" message="Voulez-vous vraiment supprimer ce genre ?" csrftoken="{{ csrf_token('delete' ~ gender.id) }}"/>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock %}

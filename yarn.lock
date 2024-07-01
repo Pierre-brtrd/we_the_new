@@ -1493,10 +1493,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@orchidjs/sifter@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@orchidjs/sifter@npm:1.0.3"
+  dependencies:
+    "@orchidjs/unicode-variants": "npm:^1.0.4"
+  checksum: 10c0/a0c4659ae7a8729ba7adef1b531e6dea394e9bba0309e3e803d66f6efa3d5d74c6d959540ccd8ae056b7283e1713f937cf81efede2b4ce6dddfa198a3a3f0a35
+  languageName: node
+  linkType: hard
+
+"@orchidjs/unicode-variants@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "@orchidjs/unicode-variants@npm:1.0.4"
+  checksum: 10c0/b5e8362b6e98127db4ec9a1e02432f01ac2e679feb9d7cf47d7a77f65161c31cc2635bd511cc04ec7e3bb907fcdb1449ce3867245278c714e4d64ea989c49b9f
+  languageName: node
+  linkType: hard
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10c0/5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:^2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: 10c0/4681e682abc006d25eb380d0cf3efc7557043f53b6aea7a5057d0d1e7df849a00e281cd8ea79c902a35a414d7919621fc2ba293ecec05f413598e0b23d5a1e63
   languageName: node
   linkType: hard
 
@@ -1519,6 +1542,16 @@ __metadata:
   peerDependencies:
     "@hotwired/stimulus": ^3.0
   checksum: 10c0/3ba997685b45eaf7214807847d9626835011641a580286fc9c90c595da2c3d6cda67b358e15dca0d95c719941fd4074b77655902dd2dc710850ac8840fb5d266
+  languageName: node
+  linkType: hard
+
+"@symfony/ux-autocomplete@file:vendor/symfony/ux-autocomplete/assets::locator=root-workspace-0b6124%40workspace%3A.":
+  version: 1.0.0
+  resolution: "@symfony/ux-autocomplete@file:vendor/symfony/ux-autocomplete/assets#vendor/symfony/ux-autocomplete/assets::hash=2ef6bc&locator=root-workspace-0b6124%40workspace%3A."
+  peerDependencies:
+    "@hotwired/stimulus": ^3.0.0
+    tom-select: ^2.2.2
+  checksum: 10c0/850ac9ce774227a4ed599f8fce4de2dc935ebcbefc0b2ee7686031fd192be92c39daeee3d8c5931f399046f24a5cae70cd69d9c2ac640b9ee78364027f5c4f10
   languageName: node
   linkType: hard
 
@@ -2463,6 +2496,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bootstrap-icons@npm:^1.11.3":
+  version: 1.11.3
+  resolution: "bootstrap-icons@npm:1.11.3"
+  checksum: 10c0/37eefd418c6bbbb304bdff0f2ed527f82c3c6f331d3e3a7c4aa8bbdbaf7118bb86725b024f85e7d738c613d48c7353cd81c09e58e9d8d34c5633960fdec8410b
+  languageName: node
+  linkType: hard
+
+"bootstrap@npm:^5.3.3":
+  version: 5.3.3
+  resolution: "bootstrap@npm:5.3.3"
+  peerDependencies:
+    "@popperjs/core": ^2.11.8
+  checksum: 10c0/bb68ca7b763977b9cce40cb5b8c676ae19a716d2f5d15009fa7bdbcec9dea426968e3cb748fbed7592fbf10edd7c749aea841c2920996a7c1aa5e0a6e2d4c2ad
+  languageName: node
+  linkType: hard
+
 "brace-expansion@npm:^1.1.7":
   version: 1.1.11
   resolution: "brace-expansion@npm:1.1.11"
@@ -2606,7 +2655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.3":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.5.3":
   version: 3.6.0
   resolution: "chokidar@npm:3.6.0"
   dependencies:
@@ -4061,6 +4110,13 @@ __metadata:
   peerDependencies:
     postcss: ^8.1.0
   checksum: 10c0/39c92936fabd23169c8611d2b5cc39e39d10b19b0d223352f20a7579f75b39d5f786114a6b8fc62bee8c5fed59ba9e0d38f7219a4db383e324fb3061664b043d
+  languageName: node
+  linkType: hard
+
+"immutable@npm:^4.0.0":
+  version: 4.3.6
+  resolution: "immutable@npm:4.3.6"
+  checksum: 10c0/7d0952a768b4fadcee47230ed86dc9505a4517095eceaf5a47e65288571c42400c6e4a2ae21eca4eda957cb7bc50720213135b62cf6a181639111f8acae128c3
   languageName: node
   linkType: hard
 
@@ -5903,11 +5959,18 @@ __metadata:
     "@babel/preset-env": "npm:^7.16.0"
     "@hotwired/stimulus": "npm:^3.0.0"
     "@hotwired/turbo": "npm:^7.1.1 || ^8.0"
+    "@popperjs/core": "npm:^2.11.8"
     "@symfony/stimulus-bridge": "npm:^3.2.0"
+    "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets"
     "@symfony/ux-turbo": "file:vendor/symfony/ux-turbo/assets"
     "@symfony/webpack-encore": "npm:^4.0.0"
+    bootstrap: "npm:^5.3.3"
+    bootstrap-icons: "npm:^1.11.3"
     core-js: "npm:^3.23.0"
     regenerator-runtime: "npm:^0.13.9"
+    sass: "npm:^1.77.2"
+    sass-loader: "npm:^14.2.1"
+    tom-select: "npm:^2.2.2"
     webpack: "npm:^5.74.0"
     webpack-cli: "npm:^4.10.0"
     webpack-notifier: "npm:^1.15.0"
@@ -5932,6 +5995,45 @@ __metadata:
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: 10c0/7e3c8b2e88a1841c9671094bbaeebd94448111dd90a81a1f606f3f67708a6ec57763b3b47f06da09fc6054193e0e6709e77325415dc8422b04497a8070fa02d4
+  languageName: node
+  linkType: hard
+
+"sass-loader@npm:^14.2.1":
+  version: 14.2.1
+  resolution: "sass-loader@npm:14.2.1"
+  dependencies:
+    neo-async: "npm:^2.6.2"
+  peerDependencies:
+    "@rspack/core": 0.x || 1.x
+    node-sass: ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0 || ^9.0.0
+    sass: ^1.3.0
+    sass-embedded: "*"
+    webpack: ^5.0.0
+  peerDependenciesMeta:
+    "@rspack/core":
+      optional: true
+    node-sass:
+      optional: true
+    sass:
+      optional: true
+    sass-embedded:
+      optional: true
+    webpack:
+      optional: true
+  checksum: 10c0/9a48d454584d96d6c562eb323bb9e3c6808e930eeaaa916975b97d45831e0b87936a8655cdb3a4512a25abc9587dea65a9616e42396be0d7e7c507a4795a8146
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.77.2":
+  version: 1.77.2
+  resolution: "sass@npm:1.77.2"
+  dependencies:
+    chokidar: "npm:>=3.0.0 <4.0.0"
+    immutable: "npm:^4.0.0"
+    source-map-js: "npm:>=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 10c0/0d292339064de3c902e209d41de9c4eb2038cff326476aeebbb5be3eee1d23400d975face2b8e124ae617b10af3e93bec01580f61912f34e4c517fe137a118b6
   languageName: node
   linkType: hard
 
@@ -6182,7 +6284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-js@npm:^1.0.1, source-map-js@npm:^1.2.0":
+"source-map-js@npm:>=0.6.2 <2.0.0, source-map-js@npm:^1.0.1, source-map-js@npm:^1.2.0":
   version: 1.2.0
   resolution: "source-map-js@npm:1.2.0"
   checksum: 10c0/7e5f896ac10a3a50fe2898e5009c58ff0dc102dcb056ed27a354623a0ece8954d4b2649e1a1b2b52ef2e161d26f8859c7710350930751640e71e374fe2d321a4
@@ -6507,6 +6609,16 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 10c0/93937279934bd66cc3270016dd8d0afec14fb7c94a05c72dc57321f8bd1fa97e5bea6d1f7c89e728d077ca31ea125b78320a616a6c6cd0e6b9cb94cb864381c1
+  languageName: node
+  linkType: hard
+
+"tom-select@npm:^2.2.2":
+  version: 2.3.1
+  resolution: "tom-select@npm:2.3.1"
+  dependencies:
+    "@orchidjs/sifter": "npm:^1.0.3"
+    "@orchidjs/unicode-variants": "npm:^1.0.4"
+  checksum: 10c0/82267fbb10e3573e750aba8da12fe0bdcd71d155b2eb9e86c148bfa9a50a638ff911feaa23f9c8d09b069b47f3a52a766f291d4cf8f399e16be4082e119c1c75
   languageName: node
   linkType: hard
 

@@ -1,0 +1,4 @@
+<form action="{{ action }}" method="POST" onsubmit="return confirm('{{ message }}')" {{ attributes }}>
+	<input type="hidden" name="token" value="{{ csrftoken }}">
+	<button class="btn btn-danger">Supprimer</button>
+</form>

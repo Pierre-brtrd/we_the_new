@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Welcome
+	{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('home') }}
+{% endblock %}
+
+{% block body %}
+	<section class="banner banner-home">
+		<div class="banner-header">
+			<h1 class="fs-2">Must Have</h1>
+			<p>Que vous cherchiez un classique ou la dernière collab’, votre bonheur se trouve ici.</p>
+			<a href="#" class="btn btn-secondary">Decouvrir</a>
+		</div>
+	</section>
+	<section class="models">
+		<div class="slider-model-wrapper">
+			<div class="slider-model home">
+				{% include 'Components/Slider/_sliderModel.html.twig' %}
+			</div>
+		</div>
+	</section>
+	<section class="container latest-product">
+		{% include 'Frontend/Home/_latestProducts.html.twig' %}
+	</section>
+	<section class="container marques my-4">
+		{% include 'Frontend/Home/_marques.html.twig' %}
+	</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+.product-accordion {
+    &-item {
+        border-top: 1px solid $secondary;
+        border-bottom: 1px solid $secondary;
+        width: 100%;
+        overflow: hidden;
+        padding: 1rem 0 0;
+
+        &:not(:first-child) {
+            border-top: none;
+        }
+
+        button {
+            @include flex(space-between, center);
+
+            background: transparent;
+            border: none;
+            margin-bottom: 1rem;
+            width: 100%;
+
+            i {
+                font-size: 2rem;
+            }
+        }
+
+        &.first {
+            &::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                display: block;
+                height: 6rem;
+                background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+                transform: translateY(-100%);
+                pointer-events: none;
+                transition: all 0.3s ease-in;
+            }
+
+            &:has(.active) {
+                &::after {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+
+    &-content {
+        height: 0;
+        transition: all 0.3s ease-in;
+
+        &-body {
+            padding: 0 0 1rem;
+        }
+
+        &.first {
+            height: 3rem;
+        }
+    }
+}

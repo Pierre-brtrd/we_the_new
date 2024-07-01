@@ -1,0 +1,60 @@
+input {
+    padding: 0.5rem;
+    border-radius: $border-radius;
+    border: 1px solid $gray;
+
+    &::placeholder {
+        color: $gray;
+    }
+}
+
+form {
+    &:not(.navbar-form, .form-filter) {
+        button[type="submit"] {
+            width: 100%;
+        }
+    }
+}
+
+.form-switch {
+    .form-check-input {
+        background-color: $text-color;
+    }
+}
+
+.form-check-input {
+    &:checked {
+        background-color: $text-color;
+    }
+}
+.filter {
+    @include flex($align: center, $gap: 1rem);
+    form {
+        position: relative;
+        button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $primary;
+            padding: 0.5rem 1rem;
+            border: none;
+            background: transparent;
+            width: max-content;
+        }
+    }
+}
+
+.form-add-to-cart{
+    .input-radio-add-to-cart{
+        display: none;
+    }
+
+    .card-variant{
+
+        transition: all 0.3s;
+        &:has(input[type="radio"]:checked) {
+            border: 2px solid $secondary
+        }
+    }
+}

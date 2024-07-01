@@ -1,0 +1,12 @@
+lexik_jwt_authentication:
+    secret_key: '%env(resolve:JWT_SECRET_KEY)%'
+    public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
+    pass_phrase: '%env(JWT_PASSPHRASE)%'
+    token-ttl: 14400
+
+    token_extractors:
+        cookie:
+            enabled: false
+            name:    BEARER
+    set_cookies:
+        BEARER: ~

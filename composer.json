@@ -11,8 +11,13 @@
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^3.2",
+        "knplabs/knp-gaufrette-bundle": "^0.9.0",
+        "knplabs/knp-paginator-bundle": "^6.3",
+        "lexik/jwt-authentication-bundle": "^3.0",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.29",
+        "stof/doctrine-extensions-bundle": "^1.10",
+        "stripe/stripe-php": "^14.9",
         "symfony/asset": "7.0.*",
         "symfony/console": "7.0.*",
         "symfony/doctrine-messenger": "7.0.*",
@@ -37,13 +42,17 @@
         "symfony/string": "7.0.*",
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
+        "symfony/ux-autocomplete": "^2.17",
         "symfony/ux-turbo": "^2.17",
+        "symfony/ux-twig-component": "^2.17",
         "symfony/validator": "7.0.*",
         "symfony/web-link": "7.0.*",
         "symfony/webpack-encore-bundle": "^2.1",
         "symfony/yaml": "7.0.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/intl-extra": "^3.10",
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^2.3"
     },
     "config": {
         "allow-plugins": {
@@ -90,11 +99,13 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "7.0.*"
         }
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "fakerphp/faker": "^1.23",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",

@@ -1,0 +1,19 @@
+<a href="{{ path('app.products.show', {slug: product.slug}) }}" class="card-product">
+	{% if product|main_image %}
+		<img src="{{ vich_uploader_asset(product|main_image) }}" class="card-product-img" alt="{{ product.name }}" loading="lazy">
+	{% endif %}
+	<div class="card-product-content-info">
+		<p class="card-product-model-name fw-bold fs-5 mb-0">{{ product.name }}</p>
+		{% if product|resolve_chepeast_variant %}
+			<p class="card-product-price fw-bold">À partir de
+				{{ priceTTC(product|resolve_chepeast_variant)|format_currency('EUR') }}</p>
+		{% endif %}
+		<p class="card-product-name fw-bold">{{ product.model.marque.name }}</p>
+	</div>
+	{% if app.request.get('_route') == 'admin.products.index' %}
+		<div class="card-btn">
+			<a href="{{ path('admin.products.edit', {id: product.id}) }}" class="btn btn-warning">Modifier</a>
+			<twig:DeleteForm action="{{ path('admin.products.delete', {id: product.id}) }}" message="Voulez-vous vraiment supprimer ce produit ?" csrftoken="{{ csrf_token('delete' ~ product.id) }}"/>
+		</div>
+	{% endif %}
+</a>
