@@ -21,7 +21,6 @@ class ProductController extends AbstractController
     ) {
     }
 
-    #[Route('', name: '.index', methods: ['GET'])]
     public function index(Request $request): Response
     {
         return $this->render('Backend/Products/index.html.twig', [
@@ -87,7 +86,7 @@ class ProductController extends AbstractController
 
             foreach ($associatedProducts as $associatedProduct) {
                 $associatedProduct->setProduct($product);
-
+                
                 $this->em->persist($associatedProduct);
             }
 
