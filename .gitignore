@@ -29,3 +29,6 @@ yarn-error.log
 /public/images/marques
 /public/images/models
 /public/images/products
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
