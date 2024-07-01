@@ -2,14 +2,15 @@
 
 namespace App\Entity\Product;
 
-use App\Entity\Traits\DateTimeTrait;
-use App\Entity\Traits\EnableTrait;
-use App\Repository\Product\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\EnableTrait;
+use App\Entity\Traits\DateTimeTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use App\Repository\Product\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -22,13 +23,16 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['gender:show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['gender:show'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     #[Gedmo\Slug(fields: ['name'])]
+    
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
