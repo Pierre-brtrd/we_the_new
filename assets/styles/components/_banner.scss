@@ -1,0 +1,17 @@
+.banner {
+    @include flex($align: center, $justify: flex-end);
+    height: calc(90vh - 54px);
+    margin-bottom: 1rem;
+
+    &-header {
+        width: 33%;
+        margin-right: 5em;
+        padding: 2rem 1rem;
+        border-radius: $border-radius;
+        background: $primary;
+
+        a {
+            padding: 0.5rem 2rem;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+.form-shipping {
+    &-list {
+        @include grid(repeat(2, 1fr), 1rem);
+        margin-bottom: 1rem;
+    }
+
+    &-card {
+        @include flex($direction: column);
+        padding: 1rem;
+        border-radius: $border-radius;
+        border: 1px solid $secondary;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        &-description {
+            flex: 1;
+        }
+
+        &-description,
+        &-price {
+            margin-bottom: 0;
+        }
+
+        &-price {
+            align-self: end;
+            font-weight: bold;
+        }
+
+        &:has(input:checked) {
+            background: $secondary;
+            color: $primary;
+        }
+    }
+}

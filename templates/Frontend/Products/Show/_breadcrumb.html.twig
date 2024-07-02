@@ -1,0 +1,20 @@
+<ol itemscope itemtype="https://schema.org/BreadcrumbList" class="breadcrumb">
+	<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+		<a itemprop="item" href="{{ path('app.home')}}">
+			<span itemprop="name">Accueil</span>
+		</a>
+		<meta itemprop="position" content="1"/>
+	</li>
+	›
+	<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+		<a itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="https://example.com/books/sciencefiction" href="{{ path('app.products.index', {slug: product.model.slug}) }}">
+			<span itemprop="name">Sneakers</span>
+		</a>
+		<meta itemprop="position" content="2"/>
+	</li>
+	›
+	<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+		<span itemprop="name">{{ product.name }}</span>
+		<meta itemprop="position" content="3"/>
+	</li>
+</ol>

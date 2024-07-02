@@ -1,0 +1,27 @@
+<table class="admin-table mt-4">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Produit</th>
+			<th>Taille</th>
+			<th>Prix</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for productVariant in productVariants %}
+			<tr>
+				<td>{{ productVariant.id }}</td>
+				<td>{{ productVariant.product.name }}</td>
+				<td>{{ productVariant.size }}</td>
+				<td>{{ productVariant.priceHT|format_currency('EUR') }}</td>
+				<td class="actions">
+					<div class="actions-container">
+						<a href="#" class="btn btn-warning">Modifier</a>
+						<twig:DeleteForm action="#" message="Voulez-vous vraiment supprimer ce variant ?" csrftoken="{{ csrf_token('delete' ~ productVariant.id) }}"/>
+					</div>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

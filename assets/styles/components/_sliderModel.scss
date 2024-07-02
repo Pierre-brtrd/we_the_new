@@ -1,0 +1,32 @@
+.slider-model {
+    @include flex($align: center, $wrap: nowrap, $gap: 1em);
+    margin-bottom: 1rem;
+    width: 100%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.home {
+        padding-left: 5%;
+    }
+
+    &-wrapper {
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            top: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 90%);
+            width: 15%;
+            z-index: 1;
+            pointer-events: none;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Récapitulatif de votre commande
+	{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('checkout') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('checkout') }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-2">
+		{% include 'Frontend/Checkout/_breadcrumb.html.twig' %}
+		<div class="row">
+			<div class="col-md-8">
+				<h1>Votre commande</h1>
+				{% include 'Frontend/Checkout/_recapItems.html.twig' %}
+			</div>
+			<div class="col-md-4">
+				{% include 'Frontend/Checkout/_totals.html.twig' %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	S’inscrire
+	{{ parent() }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+{% block body %}
+	<section class="login-container">
+		<h1 class="text-center">S’inscrire</h1>
+		<p class="text-center">
+			Créez-vous un compte pour commencer à faire votre collection de Sneakers
+		</p>
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-md-6">{{ form_row(form.firstName) }}</div>
+			<div class="col-md-6">{{ form_row(form.lastName) }}</div>
+		</div>
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-dark">S'inscrire</button>
+		{{ form_end(form) }}
+		<p class="text-center mt-4">
+			Vous avez déjà un compte ?
+			<a href="{{ path('app.login') }}">Connectez-vous</a>
+		</p>
+	</section>
+{% endblock %}

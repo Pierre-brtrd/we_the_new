@@ -1,0 +1,4 @@
+App\Entity\Product\Gender:
+    gender1:
+        name: "gender1"
+        enable: true
