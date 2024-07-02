@@ -3,7 +3,6 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Product\Product;
-use App\Entity\Product\ProductAssociation;
 use App\Form\ProductType;
 use App\Repository\Product\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;

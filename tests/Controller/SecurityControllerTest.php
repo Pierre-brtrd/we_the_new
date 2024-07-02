@@ -102,6 +102,72 @@ class SecurityControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(403);
     }
 
+    public function testResponseRegisterPage(): void
+    {
+        $this->client->request('GET', '/register');
+
+        $this->assertResponseStatusCodeSame(200);
+    }
+
+    public function testSubmitRegisterFormWithGoodInformations(): void
+    {
+        $crawler = $this->client->request('GET', '/register');
+
+        $form = $crawler->selectButton('S\'inscrire')->form([
+            'user[firstName]' => 'test',
+            'user[lastName]' => 'test',
+            'user[email]' => 'test@test.com',
+            'user[password][first]' => 'Test1234!',
+            'user[password][second]' => 'Test1234!',
+        ]);
+
+        $this->client->submit($form);
+
+        $this->assertResponseRedirects('/login');
+
+        $user = self::getContainer()->get(UserRepository::class)->findOneBy(['email' => 'test@test.com']);
+
+        $this->assertNotNull($user);
+    }
+
+    public function testSubmitRegisterFormWithBadEmail(): void
+    {
+        $crawler = $this->client->request('GET', '/register');
+
+        $form = $crawler->selectButton('S\'inscrire')->form([
+            'user[firstName]' => 'test',
+            'user[lastName]' => 'test',
+            'user[email]' => 'test',
+            'user[password][first]' => 'Test1234!',
+            'user[password][second]' => 'Test1234!',
+        ]);
+
+        $this->client->submit($form);
+
+        $this->assertResponseStatusCodeSame(422);
+
+        $this->assertSelectorTextContains('form .invalid-feedback', 'Cette valeur n\'est pas une adresse email valide.');
+    }
+
+    public function testSubmitRegisterFormWithBadPassword(): void
+    {
+        $crawler = $this->client->request('GET', '/register');
+
+        $form = $crawler->selectButton('S\'inscrire')->form([
+            'user[firstName]' => 'test',
+            'user[lastName]' => 'test',
+            'user[email]' => 'test@test.com',
+            'user[password][first]' => 'test',
+            'user[password][second]' => 'test',
+        ]);
+
+        $this->client->submit($form);
+
+        $this->assertResponseStatusCodeSame(422);
+
+        $this->assertSelectorTextContains('form .invalid-feedback', 'Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial, et faire plus de 8 caractères.');
+    }
+
     public function tearDown(): void
     {
         parent::tearDown();
