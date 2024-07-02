@@ -2,10 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Order\Order;
 use App\Entity\Order\OrderItem;
-use App\Entity\Product\ProductVariant;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

@@ -1,4 +1,6 @@
 {
+    "name": "jdoe666/e_commerce",
+    "description": "Site e_commerce WeTheNew",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -115,6 +117,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "7.0.*",
-        "symfony/web-profiler-bundle": "7.0.*"
+        "symfony/web-profiler-bundle": "7.0.*",
+        "symplify/easy-coding-standard": "^12.3"
     }
 }

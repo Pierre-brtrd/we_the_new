@@ -6,7 +6,6 @@ use App\Entity\Product\Gender;
 use App\Entity\Product\Model;
 use App\Entity\Product\Product;
 use App\Form\DataTransformer\ProductAssociationsTransformer;
-use App\Form\ProductImageType;
 use App\Repository\Product\GenderRepository;
 use App\Repository\Product\ModelRepository;
 use App\Repository\Product\ProductRepository;

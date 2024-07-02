@@ -37,11 +37,14 @@ class UserType extends AbstractType
                     'constraints' => [
                         new Assert\NotBlank(),
                         new Assert\Length([
-                            'min' => 6,
-                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères.',
                             'max' => 4096,
-                        ])
+                        ]),
+                        new Assert\Regex([
+                            'pattern' => '/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/',
+                            'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial, et faire plus de 8 caractères.'
+                        ]),
                     ],
+                    
                 ],
                 'second_options' => [
                     'label' => 'Répéter le mot de passe',

@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Order\Order;
 use App\Entity\Order\OrderItem;
 use App\Entity\Product\ProductVariant;
 use App\Repository\Product\ProductVariantRepository;
