@@ -8,7 +8,9 @@
 			<p class="card-product-price fw-bold">À partir de
 				{{ priceTTC(product|resolve_chepeast_variant)|format_currency('EUR') }}</p>
 		{% endif %}
-		<p class="card-product-name fw-bold">{{ product.model.marque.name }}</p>
+		{% if product.model.marque %}
+			<p class="card-product-name fw-bold">{{ product.model.marque.name }}</p>
+		{% endif %}
 	</div>
 	{% if app.request.get('_route') == 'admin.products.index' %}
 		<div class="card-btn">
