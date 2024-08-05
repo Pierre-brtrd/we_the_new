@@ -1,0 +1,17 @@
+{% extends "Frontend/User/layout.html.twig" %}
+
+{% block title %}
+	Ajouter une adresse
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div class="account-breadcrumb">
+		{% include 'Frontend/User/_breadcrumb.html.twig' with { url: path('app.account.address.new'), label: 'Nouvelle adresse' } %}
+		<h1>Ajouter une adresse</h1>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		<button type="submit" class="btn btn-secondary">Ajouter</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

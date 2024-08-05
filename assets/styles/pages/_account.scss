@@ -34,7 +34,8 @@
             width: 90%;
             padding: 1rem 0.5rem;
 
-            &:hover {
+            &:hover,
+            &.current {
                 background: $primary;
             }
         }
@@ -45,15 +46,19 @@
         padding: 3rem 0;
     }
 
+    %card {
+        border-radius: $border-radius;
+        border: 1px solid $text-color;
+        padding: 1rem;
+    }
+
     &-order {
         &-list {
             @include grid(repeat(2, 1fr), 1rem);
         }
 
         &-card {
-            border-radius: $border-radius;
-            border: 1px solid $text-color;
-            padding: 1rem;
+            @extend %card;
             cursor: pointer;
             transition: all 0.3s ease;
 
@@ -73,6 +78,26 @@
             &-footer {
                 @include flex(space-between, center);
                 margin-top: 1rem;
+            }
+        }
+    }
+
+    &-address {
+        &-list {
+            @include grid(repeat(4, 1fr), 1rem);
+        }
+
+        &-card {
+            @extend %card;
+            @include flex($gap: 0.5rem);
+
+            &.default {
+                background: darken($primary, 10%);
+            }
+
+            p {
+                flex: 1;
+                margin-bottom: 0;
             }
         }
     }
