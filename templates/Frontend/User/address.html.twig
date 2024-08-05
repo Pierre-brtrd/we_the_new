@@ -1,0 +1,35 @@
+{% extends "Frontend/User/layout.html.twig" %}
+
+{% block title %}
+	Vos adresses
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div class="account-breadcrumb">
+		{% include 'Frontend/User/_breadcrumb.html.twig' with { url: path('app.account.address'), label: 'Mes adresses' } %}
+		<h1>Mes adresses</h1>
+		<a href="{{ path('app.account.address.new') }}" class="btn btn-secondary my-2">Ajouter une adresse</a>
+		<div class="account-address-list">
+			{% for address in user.addresses %}
+				<div class="account-address-card {{ address == user.defaultAddress ? 'default' }}">
+					<svg width="18" height="20" viewbox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g clip-path="url(#clip0_1004_1508)">
+							<path d="M16.0322 8.364C16.0322 14.09 8.5984 19 8.5984 19C8.5984 19 1.16359 14.09 1.16359 8.364C1.15213 7.38979 1.33596 6.42301 1.70442 5.51967C2.07289 4.61633 2.61867 3.7944 3.31015 3.10148C4.00162 2.40856 4.82505 1.85843 5.73272 1.48297C6.64038 1.10751 7.61425 0.914185 8.59789 0.914185C9.58154 0.914185 10.5554 1.10751 11.4631 1.48297C12.3707 1.85843 13.1942 2.40856 13.8856 3.10148C14.5771 3.7944 15.1229 4.61633 15.4914 5.51967C15.8598 6.42301 16.0437 7.38979 16.0322 8.364Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M8.59872 10.82C9.25609 10.82 9.88653 10.5614 10.3514 10.101C10.8162 9.64058 11.0773 9.01614 11.0773 8.36503C11.0773 7.71393 10.8162 7.08949 10.3514 6.62909C9.88653 6.16869 9.25609 5.91003 8.59872 5.91003C7.94136 5.91003 7.31091 6.16869 6.84608 6.62909C6.38126 7.08949 6.12012 7.71393 6.12012 8.36503C6.12012 9.01614 6.38126 9.64058 6.84608 10.101C7.31091 10.5614 7.94136 10.82 8.59872 10.82Z" stroke="#808080" stroke-linecap="round" stroke-linejoin="round"/>
+						</g>
+						<defs>
+							<clipPath id="clip0_1004_1508">
+								<rect width="17.1635" height="20" fill="white" transform="translate(0.154297)"/>
+							</clipPath>
+						</defs>
+					</svg>
+					<p>
+						{{ address }}
+					</p>
+					<a href="{{ path('app.account.address.default', {id: address.id}) }}" class="btn btn-primary mt-2">Définir par défaut</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

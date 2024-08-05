@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -80,20 +81,49 @@ class UserType extends AbstractType
         }
 
         if ($options['isEdit']) {
-            $builder->add('phone', TelType::class, [
-                'required' => false,
-                'label' => 'Téléphone',
-                'attr' => [
-                    'placeholder' => '06 06 06 06 06'
-                ]
-            ])
-                ->add('birthDate', DateType::class, [
+            $builder
+                ->add('phone', TelType::class, [
+                    'required' => false,
+                    'label' => 'Téléphone',
+                    'attr' => [
+                        'placeholder' => '06 06 06 06 06'
+                    ]
+                ])
+                ->add('birthDate', BirthdayType::class, [
                     'label' => 'Date de naissance',
                     'attr' => [
                         'placeholder' => 'jj/mm/aaaa'
                     ],
                     'required' => false,
                     'widget' => 'single_text',
+                ])
+                ->add('password', RepeatedType::class, [
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Les mots de passe doivent être identiques.',
+                    'first_options' => [
+                        'required' => false,
+                        'label' => 'Mot de passe',
+                        'attr' => [
+                            'placeholder' => '*******'
+                        ],
+                        'constraints' => [
+                            new Assert\Length([
+                                'max' => 4096,
+                            ]),
+                            new Assert\Regex([
+                                'pattern' => '/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,}$/',
+                                'message' => 'Votre mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial, et faire plus de 8 caractères.'
+                            ]),
+                        ],
+                    ],
+                    'second_options' => [
+                        'label' => 'Répéter le mot de passe',
+                        'required' => false,
+                        'attr' => [
+                            'placeholder' => '*******'
+                        ]
+                    ],
+                    'mapped' => false,
                 ]);
         }
     }

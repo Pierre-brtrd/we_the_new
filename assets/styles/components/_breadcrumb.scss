@@ -25,4 +25,12 @@
             }
         }
     }
+
+    &-account-list {
+        li:not(:last-of-type) {
+            &::after {
+                content: "›";
+            }
+        }
+    }
 }
