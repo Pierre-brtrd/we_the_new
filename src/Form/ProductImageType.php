@@ -14,22 +14,21 @@ class ProductImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('type', ChoiceType::class, [
-                'label' => 'Type',
-                'placeholder' => 'Choisir un type d\'image',
-                'required' => false,
+            ->add('imageType', ChoiceType::class, [
+                'label' => 'Type d\'image',
+                'placeholder' => 'Choisir un type',
                 'choices' => [
-                    'Image principale' => 'main',
-                    'Image secondaire' => 'secondary',
-                ],
+                    'Image principale' => ProductImage::IMAGE_TYPE_MAIN,
+                    'Image secondaire' => ProductImage::IMAGE_TYPE_SECONDARY,
+                ]
             ])
             ->add('image', VichImageType::class, [
                 'label' => 'Image',
-                'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
                 'image_uri' => true,
                 'asset_helper' => false,
+                'required' => false,
             ]);
     }
 

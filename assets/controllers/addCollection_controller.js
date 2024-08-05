@@ -2,23 +2,19 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
-        this.element.querySelectorAll('.add_item_link')
-            .forEach(btn => {
-                btn.addEventListener('click', this.addFormToCollection.bind(this));
-            });
+        this.element.querySelectorAll('.add_item_link').forEach(btn => {
+            btn.addEventListener('click', this.addFormToCollection.bind(this));
+        });
 
-        this.element.querySelectorAll('.remove_item_link')
-            .forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    btn.parentNode.remove();
-                });
+        this.element.querySelectorAll('.remove_item_link').forEach(btnRemove => {
+            btnRemove.addEventListener('click', () => {
+                btnRemove.parentNode.remove();
             })
-
+        });
     }
 
     addFormToCollection(e) {
-        const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+        const collectionHolder = this.element.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
         const item = document.createElement('li');
         item.classList.add('col-md-4');
@@ -31,22 +27,25 @@ export default class extends Controller {
                 collectionHolder.dataset.index
             );
 
-        this.addTagFormDeleteLink(item);
+        this.addDeleteCollection(item);
 
         collectionHolder.appendChild(item);
 
         collectionHolder.dataset.index++;
     }
 
-    addTagFormDeleteLink(item) {
-        const removeFormButton = document.createElement('button');
-        removeFormButton.innerHTML = '<i class="bi bi-x-square-fill"></i>';
-        removeFormButton.classList.add('btn', 'btn-danger')
+    addDeleteCollection(item) {
+        const btnRemove = document.createElement('button');
+        btnRemove.setAttribute('type', 'button');
+        btnRemove.classList.add('btn', 'btn-danger');
 
-        item.prepend(removeFormButton);
+        btnRemove.innerHTML = '<i class="bi bi-x-square-fill"></i>';
 
-        removeFormButton.addEventListener('click', (e) => {
+        item.prepend(btnRemove);
+
+        btnRemove.addEventListener('click', (e) => {
             e.preventDefault();
+
             item.remove();
         });
     }

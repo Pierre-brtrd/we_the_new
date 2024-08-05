@@ -25,7 +25,7 @@
 				</td>
 				<td class="table-img">
 					{% if product|main_image %}
-						<img src="{{ vich_uploader_asset(product|main_image) }}" class="card-product-img" alt="{{ product.name }}" loading="lazy">
+						{{ dump(product|main_image) }}
 					{% endif %}
 				</td>
 				<td class="actions">

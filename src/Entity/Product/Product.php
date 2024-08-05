@@ -49,13 +49,6 @@ class Product
     private ?Model $model = null;
 
     /**
-     * @var Collection<int, ProductImage>
-     */
-    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
-    // #[Assert\Valid]
-    private Collection $images;
-
-    /**
      * @var Collection<int, ProductVariant>
      */
     #[ORM\OneToMany(targetEntity: ProductVariant::class, mappedBy: 'product', orphanRemoval: true)]
@@ -68,11 +61,17 @@ class Product
     #[Assert\Valid]
     private Collection $productAssociations;
 
+    /**
+     * @var Collection<int, ProductImage>
+     */
+    #[ORM\OneToMany(targetEntity: ProductImage::class, mappedBy: 'product', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $images;
+
     public function __construct()
     {
-        $this->images = new ArrayCollection();
         $this->productVariants = new ArrayCollection();
         $this->productAssociations = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -153,36 +152,6 @@ class Product
     }
 
     /**
-     * @return Collection<int, ProductImage>
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(ProductImage $productImage): static
-    {
-        if (!$this->images->contains($productImage)) {
-            $this->images->add($productImage);
-            $productImage->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(ProductImage $productImage): static
-    {
-        if ($this->images->removeElement($productImage)) {
-            // set the owning side to null (unless already changed)
-            if ($productImage->getProduct() === $this) {
-                $productImage->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, ProductVariant>
      */
     public function getProductVariants(): Collection
@@ -246,6 +215,36 @@ class Product
     {
         foreach ($this->productAssociations as $productAssociation) {
             $this->removeProductAssociation($productAssociation);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductImage>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(ProductImage $image): static
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(ProductImage $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
+            }
         }
 
         return $this;

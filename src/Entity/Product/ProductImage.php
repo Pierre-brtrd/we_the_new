@@ -6,9 +6,7 @@ use App\Entity\Traits\DateTimeTrait;
 use App\Repository\Product\ProductImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\When;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProductImageRepository::class)]
@@ -18,36 +16,89 @@ class ProductImage
 {
     use DateTimeTrait;
 
+    public const IMAGE_TYPE_MAIN = 'main';
+    public const IMAGE_TYPE_SECONDARY = 'secondary';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 50)]
+    #[Assert\Length(max: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Choice(choices: [self::IMAGE_TYPE_MAIN, self::IMAGE_TYPE_SECONDARY])]
+    private ?string $imageType = null;
+
+    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName', size: 'imageSize')]
+    private ?File $image = null;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    private ?string $imageName = null;
+
+    #[ORM\Column]
+    private ?int $imageSize = null;
+
     #[ORM\ManyToOne(inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Length(max: 255)]
-    #[NotBlank()]
-    private ?string $type = null;
-
-    #[Vich\UploadableField(mapping: 'products', fileNameProperty: 'imageName')]
-    #[NotBlank]
-    #[When(
-        expression: 'this.getId() == null or this.getId() == true and this.getImageName() == null',
-        constraints: [
-            new NotBlank(message: 'cours.image.notBlank'),
-        ]
-    )]
-    private ?File $image = null;
-
-    #[ORM\Column()]
-    private ?string $imageName = null;
-
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getImage(): ?File
+    {
+        return $this->image;
+    }
+
+    public function setImage(?File $image): static
+    {
+        $this->image = $image;
+
+        if (null !== $image) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+
+        return $this;
+    }
+
+    public function getImageType(): ?string
+    {
+        return $this->imageType;
+    }
+
+    public function setImageType(string $imageType): static
+    {
+        $this->imageType = $imageType;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
+    public function setImageSize(?int $imageSize): static
+    {
+        $this->imageSize = $imageSize;
+
+        return $this;
     }
 
     public function getProduct(): ?Product
@@ -60,52 +111,5 @@ class ProductImage
         $this->product = $product;
 
         return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $image
-     */
-    public function setImage(?File $image = null): void
-    {
-        $this->image = $image;
-
-        if (null !== $image) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImage(): ?File
-    {
-        return $this->image;
-    }
-
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
     }
 }
