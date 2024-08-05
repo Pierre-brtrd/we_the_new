@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Liste de sneakers
+	{{ currentModel ? currentModel.name }}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="container mt-4">
+		<h1>{{ currentModel ? currentModel.name : 'Toutes les sneakers' }}</h1>
+		<div class="slider-model-wrapper">
+			<div class="slider-model">
+				{% include 'Components/Slider/_sliderModel.html.twig' %}
+			</div>
+		</div>
+		{% include 'Components/Filter/_shopFilter.html.twig' with {entity: products, entityName: 'produit'} %}
+		<div class="card-product-list">
+			{% for product in products %}
+				{% include 'Components/Cards/_productCard.html.twig' %}
+			{% endfor %}
+		</div>
+		<div class="navigation">
+			{{ knp_pagination_render(products) }}
+		</div>
+	</section>
+{% endblock %}

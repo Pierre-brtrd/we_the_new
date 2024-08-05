@@ -1,0 +1,22 @@
+<nav class="breadcrumb-account">
+	<ol class="breadcrumb-account-list breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a itemprop="item" href="{{ path('app.home') }}">
+				<span itemprop="name">Accueil</span>
+			</a>
+			<meta itemprop="position" content="1"/>
+		</li>
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a itemscope itemtype="https://schema.org/WebPage" itemprop="item" itemid="{{ path('app.account.orders') }}" href="{{ path('app.account.orders') }}">
+				<span itemprop="name">Compte</span>
+			</a>
+			<meta itemprop="position" content="2"/>
+		</li>
+		<li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<a itemprop="item" href="{{ url|default('#') }}">
+				<span itemprop="name">{{ label|default('') }}</span>
+			</a>
+			<meta itemprop="position" content="3"/>
+		</li>
+	</ol>
+</nav>

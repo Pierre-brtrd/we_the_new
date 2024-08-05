@@ -1,0 +1,8 @@
+<img src="{{ vich_uploader_asset(product|main_image) }}" class="card-product-img" alt="{{ product.name ~ '- main' }}" loading="lazy">
+<div class="row mt-4">
+	{% for image in product|secondary_image|slice(0, 2) %}
+		<div class="col-md-6">
+			<img src="{{ vich_uploader_asset(image) }}" class="card-product-img" alt="{{ product.name ~ ' - ' ~ loop.index }}" loading="lazy">
+		</div>
+	{% endfor %}
+</div>

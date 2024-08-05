@@ -1,0 +1,26 @@
+<div class="product-accordion mt-5">
+	<div class="product-accordion-item first" {{ stimulus_controller('accordionProduct') }}>
+		<button class="product-accordion-button" type="button" data-target="#description-accordion">
+			Description
+			<i class="bi bi-plus"></i>
+		</button>
+		<div id="description-accordion" class="product-accordion-content first">
+			<div class="product-accordion-content-body">
+				{{ product.description|nl2br }}
+			</div>
+		</div>
+	</div>
+	{% if product.authenticity %}
+		<div class="product-accordion-item" {{ stimulus_controller('accordionProduct') }}>
+			<button class="product-accordion-button" type="button" data-target="#auth-accordion">
+				Authenticité
+				<i class="bi bi-plus"></i>
+			</button>
+			<div id="auth-accordion" class="product-accordion-content">
+				<div class="product-accordion-content-body">
+					{{ product.authenticity|nl2br }}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+</div>

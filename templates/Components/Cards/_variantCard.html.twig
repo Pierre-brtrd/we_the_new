@@ -1,0 +1,5 @@
+<label class="card-variant" for="add_to_cart_productVariant_{{ productVariant.id }}">
+	<input type="radio" class="input-radio-add-to-cart" value="{{ productVariant.id }}" name="add_to_cart[productVariant]" id="add_to_cart_productVariant_{{ productVariant.id }}">
+	<p class="card-variant-size">{{ productVariant.size }}</p>
+	<p class="card-variant-price">{{ priceTTC(productVariant)|format_currency('EUR') }}</p>
+</label>

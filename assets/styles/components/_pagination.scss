@@ -1,0 +1,8 @@
+.navigation {
+    @include flex(center);
+    margin-top: 1rem;
+
+    .page-link {
+        color: $text-color;
+    }
+}
