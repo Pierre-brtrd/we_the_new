@@ -1,0 +1,28 @@
+{% extends "Frontend/User/layout.html.twig" %}
+
+{% block title %}
+	Votre compte
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div class="account-breadcrumb">
+		{% include 'Frontend/User/_breadcrumb.html.twig' with { url: path('app.account.orders'), label: 'Mes commandes' } %}
+		<h1>Mes commandes</h1>
+		<div class="account-order-list">
+			{% for order in user.orders %}
+				<div class="account-order-card">
+					<div class="account-order-card-header">
+						<p class="account-order-card-header-title">#{{ order.number }}</p>
+						<p class="account-order-card-header-price">{{ order.priceTTC|format_currency('EUR') }}</p>
+					</div>
+					<em class="account-order-card-date text-muted">{{ order.updatedAt|date('d/m/Y') }}</em>
+					<div class="account-order-card-footer">
+						Livraison
+						{{ order.shippings|length }}/{{ order.shippings|length }}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

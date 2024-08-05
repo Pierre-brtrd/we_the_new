@@ -1,0 +1,77 @@
+.account {
+    @include flex($wrap: nowrap, $gap: 1rem);
+
+    &-sidebar {
+        position: sticky;
+        top: 0;
+        height: calc(100vh - 59px);
+        overflow-y: scroll;
+        width: 20%;
+        border-right: 1px solid $text-color;
+        padding: 3rem 0;
+
+        &-header {
+            @include flex($gap: 1rem);
+            font-weight: bold;
+            font-size: 1.4rem;
+            line-height: 125%;
+        }
+
+        &-links {
+            @include flex($direction: column);
+
+            margin-top: 1.5rem;
+
+            li {
+                width: 100%;
+            }
+        }
+
+        &-link {
+            transition: all 0.3s ease;
+            width: 90%;
+            padding: 1rem 0.5rem;
+
+            &:hover {
+                background: $primary;
+            }
+        }
+    }
+
+    &-main-content {
+        flex: 1;
+        padding: 3rem 0;
+    }
+
+    &-order {
+        &-list {
+            @include grid(repeat(2, 1fr), 1rem);
+        }
+
+        &-card {
+            border-radius: $border-radius;
+            border: 1px solid $text-color;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: $secondary;
+                color: $primary;
+            }
+
+            &-header {
+                @include flex(space-between, center);
+
+                & > * {
+                    margin-bottom: 0;
+                }
+            }
+
+            &-footer {
+                @include flex(space-between, center);
+                margin-top: 1rem;
+            }
+        }
+    }
+}

@@ -54,7 +54,7 @@ security:
               roles: ROLE_ADMIN,
               methods: ["POST", "PUT", "PATCH", "DELETE"],
           }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/compte, roles: ROLE_USER }
 
 when@test:
     security:
