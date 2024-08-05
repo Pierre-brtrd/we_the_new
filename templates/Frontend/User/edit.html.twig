@@ -1,0 +1,25 @@
+{% extends "Frontend/User/layout.html.twig" %}
+
+{% block title %}
+	Modifier votre compte
+	{{ parent() }}
+{% endblock %}
+
+{% block content %}
+	<div class="account-breadcrumb">
+		{% include 'Frontend/User/_breadcrumb.html.twig' with { url: path('app.account.edit'), label: 'Mes informations' } %}
+		<h1>Mes informations</h1>
+		{{ form_start(form) }}
+		<div class="row">
+			<div class="col-md-6">{{ form_row(form.firstName) }}</div>
+			<div class="col-md-6">{{ form_row(form.lastName) }}</div>
+		</div>
+		{{ form_row(form.email) }}
+		{{ form_row(form.phone) }}
+		{{ form_row(form.birthDate) }}
+		{{ form_row(form.password.first, {required: false}) }}
+		{{ form_row(form.password.second, {required: false}) }}
+		<button type="submit" class="btn btn-secondary">Modifier</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

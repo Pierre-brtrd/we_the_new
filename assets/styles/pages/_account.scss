@@ -28,6 +28,8 @@
         }
 
         &-link {
+            @include flex($align: center, $gap: 10px);
+
             transition: all 0.3s ease;
             width: 90%;
             padding: 1rem 0.5rem;

@@ -26,10 +26,26 @@
 			</div>
 			<ul class="account-sidebar-links">
 				<li>
-					<a class="account-sidebar-link" href="#">Mes commandes</a>
+					<a class="account-sidebar-link" href="{{ path('app.account.orders') }}">
+						<svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M6.66699 5H17.5003" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M6.66699 10H17.5003" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M6.66699 15H17.5003" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M2.5 5H2.50833" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M2.5 10H2.50833" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M2.5 15H2.50833" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						Mes commandes
+					</a>
 				</li>
 				<li>
-					<a class="account-sidebar-link" href="#">Mes informations</a>
+					<a class="account-sidebar-link" href="{{ path('app.account.edit') }}">
+						<svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M16.6664 17.5V15.8333C16.6664 14.9493 16.3152 14.1014 15.6901 13.4763C15.0649 12.8512 14.2171 12.5 13.333 12.5H6.66635C5.78229 12.5 4.93444 12.8512 4.30932 13.4763C3.6842 14.1014 3.33301 14.9493 3.33301 15.8333V17.5" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+							<path d="M10.0003 9.16667C11.8413 9.16667 13.3336 7.67428 13.3336 5.83333C13.3336 3.99238 11.8413 2.5 10.0003 2.5C8.15937 2.5 6.66699 3.99238 6.66699 5.83333C6.66699 7.67428 8.15937 9.16667 10.0003 9.16667Z" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+						Mes informations
+					</a>
 				</li>
 			</ul>
 		</aside>
